@@ -1,0 +1,3 @@
+type: integer
+description: The organization id of the user being created, removed or updated.
+example: 250624

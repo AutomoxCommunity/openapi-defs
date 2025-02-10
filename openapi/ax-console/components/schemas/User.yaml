@@ -1,0 +1,109 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int64
+    examples:
+        - 123153
+  firstname:
+    type: string
+    examples:
+      - "John"
+  lastname:
+    type: string
+    examples:
+      - "Doe"
+  email:
+    type: string
+    format: email
+    examples:
+      - "john.doe@example.com"
+      - "rsmith@somecompany.com"
+  features:
+    type: object
+    properties:
+      mo:
+        type: boolean
+  prefs:
+    type: array
+    items:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+          examples:
+            - 123153
+        pref_name:
+          type: string
+        value:
+          type: string
+  orgs:
+    description: The organizations/zones that are assigned to the user
+    type: array
+    items:
+      $ref: ./UserOrgs.yaml
+  tags:
+    type: array
+    items:
+      type: string
+  saml_enabled:
+    type: boolean
+  sso_enabled:
+    type: boolean
+  tfa_type:
+    type: string
+  rbac_roles:
+    description: The RBAC roles assigned to the user
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          examples:
+            - 1
+        name:
+          type: string
+          examples:
+            - "Zone Administrator"
+        description:
+          type: string
+          examples:
+            - "Provides full administrative rights to a specific zone."
+        organization_id:
+          type: integer
+          format: int64
+          examples:
+              - 123153
+  intercom_hmac:
+    type: string
+  server_groups:
+    type: array
+    items:
+      type: integer
+      format: int64
+      examples:
+          - 123153
+  account_id:
+    type: string
+    format: uuid
+    examples:
+      - "10af9475-fd20-4189-bb9c-e1c707ff2670"
+  account_name:
+    type: string
+    examples:
+      - "My Account"
+  account_rbac_roles:
+    description: The RBAC roles assigned to the account
+    type: string
+    examples:
+      - "global-admin"
+  account_completed_qsg:
+    type: boolean
+  account_created_at:
+    type: string
+    format: date-time
+    examples:
+      - "2021-01-01T00:00:00+0000"

@@ -1,0 +1,39 @@
+type: object
+properties:
+  id:
+    description: API key ID
+    type: integer
+    format: int64
+  name:
+    description: The username of the user
+    type: string
+  is_enabled:
+    description: >-
+      Whether the API key is enabled or disabled. True = enabled, False =
+      disabled
+    type: boolean
+  expires_at:
+    description: The date-time when the API key expires
+    type: string
+    format: date-time
+  created_at:
+    description: The date-time when the API key was created
+    type: string
+    format: date-time
+  user:
+    type: object
+    properties:
+      id:
+        description: User ID
+        type: integer
+        format: int64
+      firstname:
+        description: The user's first name
+        type: string
+      lastname:
+        description: The user's last name
+        type: string
+      email:
+        description: The user's email address
+        type: string
+        format: email

@@ -1,0 +1,77 @@
+get:
+  operationId: getAuditEvents
+  summary: REST API to return a subset of the audited events
+  description: |
+    See the [OCSF Schema Overview](https://developer.automox.com/developer-portal/ocsf-schema-overview/) for more information on the schema, and [OCSF Class Events](https://developer.automox.com/developer-portal/ocsf-classes-events/) for more information on event classification. Also, check out this [blog](https://www.automox.com/blog/audit-trail-api/) on how to use the Audit Trail API.
+  tags:
+    - Audit Trail
+  parameters:
+    - name: orgUuid
+      in: path
+      description: The organization uuid
+      required: true
+      schema:
+        type: string
+        format: uuid
+      example: '123e4567-e89b-12d3-a456-426614174000'
+    - name: date
+      in: query
+      description: The date of the event
+      required: true
+      schema:
+        type: string
+        format: date
+      example: '2021-01-01'
+    - name: cursor
+      in: query
+      description: The identifier of an OCSF event from the _last batch of events, indicating that the next set of events must have identifiers greater than cursor_
+      required: false
+      schema:
+        type: string
+      example: '6672200dd10935351f936399'
+    - name: limit
+      in: query
+      description: The number of events to return, with a maximum of 500
+      required: false
+      schema:
+          type: integer
+          format: int32
+      example: 10
+      maximum: 500
+    - name: ax-organization-uuid
+      in: header
+      description: The organization uuid
+      required: false
+      schema:
+        type: string
+        format: uuid
+      example: '123e4567-e89b-12d3-a456-426614174000'
+  responses:
+    '200':
+      description: The filled OCSF schema for the corresponding Automox event
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              anyOf:
+                - $ref: ../components/schemas/authentication_event_output.yaml
+                - $ref: ../components/schemas/account_change_event_output.yaml
+                - $ref: ../components/schemas/entity_management_event_output.yaml
+                - $ref: ../components/schemas/web_resource_activity_output.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/UnauthorizedAction.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '429':
+      $ref: ../components/responses/RateLimit.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml
+  x-codeSamples:
+    - lang: PowerShell
+      source:
+        $ref: ../code_samples/PowerShell/audit-service/get.ps1

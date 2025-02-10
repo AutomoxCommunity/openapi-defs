@@ -1,0 +1,27 @@
+description: Device update
+type: object
+properties:
+  server_group_id:
+    description: Server Group ID for the specified group.
+    type: integer
+  ip_addrs:
+    description: Server IP addresses.
+    type: array
+    items:
+      type: string
+  exception:
+    description: >-
+      Use the exception property to exclude the device from reports and
+      statistics.
+    type: boolean
+  tags:
+    description: List of tags.
+    type: array
+    items:
+      type: string
+  custom_name:
+    description: Custom name that will display in the console instead of the hostname.
+    type: string
+required:
+  - server_group_id
+  - exception

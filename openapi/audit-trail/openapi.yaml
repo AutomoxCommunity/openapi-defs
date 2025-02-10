@@ -1,0 +1,29 @@
+openapi: 3.1.0
+info:
+  title: Automox Audit Trail REST API
+  version: 1.1.0
+  contact:
+    name: Automox Support
+    url: https://help.automox.com/hc/en-us/requests/new
+    email: support@automox.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: https://console.automox.com/api/
+externalDocs:
+  description: OCSF Schema Overview
+  url: https://developer.automox.com/developer-portal/ocsf-schema-overview/
+paths:
+  /audit-service/v1/orgs/{orgUuid}/events:
+    $ref: paths/audit-service.yaml
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+tags:
+  - name: Audit Trail
+    description: Actions for Audit Trail REST API

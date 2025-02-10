@@ -1,0 +1,16 @@
+type: object
+description: Metadata Object
+properties:
+  total_run_count:
+    type: integer
+    format: int32
+    examples:
+      - 100
+  last_run_time:
+    type: string
+    format: date-time
+    examples:
+      - '2024-03-27T12:23:45Z'
+example:
+  total_run_count: 100
+  last_run_time: '2024-03-27T12:23:45Z'

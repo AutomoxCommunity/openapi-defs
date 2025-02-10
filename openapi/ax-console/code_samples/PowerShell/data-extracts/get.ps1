@@ -1,0 +1,1 @@
+$apiKey = 'your_automox_api_key' $headers = @{ "Authorization" = "Bearer $apiKey" } $url = "https://console.automox.com/api/data-extracts?o=0000&limit=25&page=0&status:in=queued" $response = (Invoke-WebRequest -Method Get -Uri $url -Headers $headers).Content

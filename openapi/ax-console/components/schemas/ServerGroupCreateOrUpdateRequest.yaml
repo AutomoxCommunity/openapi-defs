@@ -1,0 +1,54 @@
+type: object
+properties:
+  name:
+    description: Name of the group
+    type: string
+  refresh_interval:
+    description: >-
+      Frequency of device refreshes (scans) in minutes. Minimum: 240 Maximum:
+      1440
+    type: integer
+    maximum: 1440
+    minimum: 240
+  parent_server_group_id:
+    description: >-
+      ID of the parent group. Use the organization's Default Group ID to make
+      this a top-level group. See [About Automox API - Default Group
+      ID](/developer-portal#Default-Group-ID)
+    type: integer
+  ui_color:
+    description: >-
+      The highlight color for the group. Primarily used on the System Management
+      view. Format: #059F1D
+    type: string
+  notes:
+    description: Use to define notes that are displayed while editing the policy
+    type: string
+  enable_os_auto_update:
+    description: >-
+      Enforce automatic update settings Options: `null`: Keep Device's Setting.
+      `true`: Enable OS automatic updates. `false`: Disable OS automatic
+      updates.
+    type:
+      - boolean
+      - 'null'
+  enable_wsus:
+    description: >-
+      Enforce WSUS settings for Windows devices. Options: `null`: Keep Device's
+      Setting. `true`: force WSUS. `false`: force Windows Update.
+    type:
+      - boolean
+      - 'null'
+  wsus_server:
+    description: >-
+      WSUS server address. Use with `enable_wsus`. Format:
+      `"https://myserver.com:8530"`
+    type: string
+  policies:
+    type: array
+    items:
+      type: integer
+required:
+  - name
+  - refresh_interval
+  - parent_server_group_id

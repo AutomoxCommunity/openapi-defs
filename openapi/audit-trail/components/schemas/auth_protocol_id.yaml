@@ -1,0 +1,8 @@
+type: integer
+format: int64
+minimum: 0
+maximum: 99
+description: >-
+  The normalized identifier of the authentication protocol used to create the
+  user session.
+example: 99

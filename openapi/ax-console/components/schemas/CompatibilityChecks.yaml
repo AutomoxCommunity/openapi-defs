@@ -1,0 +1,16 @@
+type: object
+properties:
+  low_diskspace:
+    type: boolean
+  missing_secure_token:
+    type: boolean
+  app_store_disconnected:
+    type: boolean
+  missing_powershell:
+    type: boolean
+  missing_wmi_integrity_check:
+    type: boolean
+  wsus_disconnected:
+    type: boolean
+  windows_update_server_disconnected:
+    type: boolean

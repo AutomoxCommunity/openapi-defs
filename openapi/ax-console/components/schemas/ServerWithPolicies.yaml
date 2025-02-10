@@ -1,0 +1,172 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int64
+  os_version_id:
+    type: integer
+    format: int64
+  server_group_id:
+    type: integer
+    format: int64
+  organization_id:
+    type: integer
+    format: int64
+  uuid:
+    type: string
+    format: uuid
+  name:
+    type: string
+  instance_id:
+    type: string
+  refresh_interval:
+    type: integer
+    format: int64
+    maximum: 1440
+    minimum: 240
+  last_update_time:
+    type: string
+  last_refresh_time:
+    type: string
+  uptime:
+    description: The uptime of the device, measured in seconds.
+    type: integer
+    format: int64
+  needs_reboot:
+    type: boolean
+  timezone:
+    type: string
+  tags:
+    type: array
+    items:
+      type: string
+  deleted:
+    type: boolean
+  create_time:
+    type: string
+    format: date-time
+  os_version:
+    type: string
+  os_name:
+    type: string
+  os_family:
+    type: string
+  ip_addrs:
+    type: array
+    items:
+      type: string
+  ip_addrs_private:
+    type: array
+    items:
+      type: string
+  hostname:
+    type: string
+  patches:
+    type: integer
+    format: int64
+  details:
+    $ref: ./ServerDetail.yaml
+  agent_version:
+    type: string
+  custom_name:
+    type: string
+  exception:
+    type: boolean
+  total_count:
+    type: integer
+    format: int64
+  server_policies:
+    type: array
+    items:
+      oneOf:
+        - $ref: ./PatchPolicy.yaml
+        - $ref: ./CustomPolicy.yaml
+        - $ref: ./RequiredSoftwarePolicy.yaml
+  policy_status:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        organization_id:
+          type: integer
+          format: int64
+        policy_id:
+          type: integer
+          format: int64
+        server_id:
+          type: integer
+          format: int64
+        policy_name:
+          type: string
+        policy_type_name:
+          type: string
+          enum:
+            - patch
+            - custom
+            - required_software
+          x-enumDescriptions:
+            patch: Patch Policy
+            custom: Worklet Policy
+            required_software: Required Software Policy
+        status:
+          type: integer
+          description: Device Status. 0 = `STATUS_NEEDS_REMEDIATION`, 1 = `STATUS_UP_TO_DATE`, 2 = `STATUS_PENDING`
+          format: int64
+        result:
+          type: string
+        create_time:
+          type: string
+        next_remediation:
+          type:
+            - string
+            - 'null'
+          format: date-time
+  last_scan_failed:
+    type: boolean
+  pending:
+    type: boolean
+  compliant:
+    type: boolean
+  display_name:
+    type: string
+  commands:
+    type: array
+    items:
+      $ref: ./Command.yaml
+  pending_patches:
+    type: integer
+    format: int64
+  connected:
+    type: boolean
+  last_process_time:
+    type: string
+  next_patch_time:
+    type: string
+  notification_count:
+    type: integer
+  reboot_notification_count:
+    type: integer
+  patch_deferral_count:
+    type: integer
+  is_delayed_by_notification:
+    type: boolean
+  reboot_is_delayed_by_notification:
+    type: boolean
+  is_delayed_by_user:
+    type: boolean
+  reboot_is_delayed_by_user:
+    type: boolean
+  last_disconnect_time:
+    type: string
+    format: date-time
+  needs_attention:
+    type: boolean
+  serial_number:
+    type: string
+  status:
+    $ref: ./DeviceStatus.yaml
+  last_logged_in_user:
+    type: string

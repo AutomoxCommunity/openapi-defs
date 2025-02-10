@@ -1,0 +1,69 @@
+get:
+  tags:
+    - Policy Index
+  summary: Policy Information
+  description: Retrieve the policy information for a given policy UUID
+  operationId: policyInformation
+  parameters:
+    - name: policy_uuid
+      in: path
+      description: Policy UUID
+      required: true
+      schema:
+        type: string
+        format: uuid
+      examples:
+        PolicyUUIDExample:
+          value: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+    - name: org
+      in: query
+      description: Organization UUID
+      required: true
+      schema:
+        type: string
+        format: uuid
+      examples:
+        OrgUUIDExample:
+          value: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+  x-codeSamples:
+    - lang: PowerShell
+      source:
+        $ref: >-
+          ../code_samples/PowerShell/policy-history_policies_{policy_uuid}/get.ps1
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/PolicyInfoResource.yaml
+            example:
+              uuid: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+              id: 123456
+              org_uuid: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+              name: Patch Tuesday
+              type: patch
+              deleted_at: '2024-03-27T12:23:45Z'
+              updated_at: '2024-03-27T12:23:45Z'
+              last_run_time: '2024-03-27T12:23:45Z'
+    '400':
+      description: Bad Request
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      description: Unauthorized
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      description: Unauthorized Action
+      $ref: ../components/responses/UnauthorizedAction.yaml
+    '404':
+      description: Not Found
+      $ref: ../components/responses/NotFound.yaml
+    '408':
+      description: Request Timeout
+      $ref: ../components/responses/RequestTimeout.yaml
+    '429':
+      description: Rate Limit
+      $ref: ../components/responses/RateLimit.yaml
+    '500':
+      description: Service Unavailable
+      $ref: ../components/responses/ServiceUnavailable.yaml

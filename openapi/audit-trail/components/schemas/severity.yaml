@@ -1,0 +1,14 @@
+type: string
+description: >-
+  The event/finding severity, normalized to the caption of the severity_id
+  value. In the case of 'Other', it is defined by the source.
+enum:
+    - Unknown
+    - Informational
+    - Low
+    - Medium
+    - High
+    - Critical
+    - Fatal
+    - Other
+

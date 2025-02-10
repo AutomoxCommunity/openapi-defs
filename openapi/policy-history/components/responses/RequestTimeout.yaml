@@ -1,0 +1,11 @@
+description: The request has timed out.
+content:
+  application/json:
+    schema:
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+      required:
+        - errors

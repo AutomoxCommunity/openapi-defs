@@ -1,0 +1,7 @@
+type: integer
+format: int64
+minimum: -1080
+maximum: +1080
+description: >-
+  The number of minutes that the reported event time is ahead or behind UTC, in
+  the range -1,080 to +1,080.

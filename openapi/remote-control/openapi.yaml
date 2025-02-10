@@ -1,0 +1,23 @@
+openapi: 3.0.3
+info:
+  title: Automox Remote Control Module API
+  description: API for use with the Automox Remote Control module
+  version: '2023-08-11'
+  contact:
+    name: Automox Support
+    email: support@automox.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: https://rc.automox.com/api
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+paths:
+  /config/consent/account/{accountUuid}/org/{orgUuid}/device:
+    $ref: paths/config_consent_account_{accountUuid}_org_{orgUuid}_device.yaml

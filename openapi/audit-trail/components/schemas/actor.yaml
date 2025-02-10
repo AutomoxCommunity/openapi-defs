@@ -1,0 +1,7 @@
+type: object
+description: >-
+  The actor object describes details about the user/role/process that was the
+  source of the activity.
+properties:
+  user:
+    $ref: ./user.yaml

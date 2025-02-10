@@ -1,0 +1,60 @@
+type: object
+properties:
+  id:
+    description: The UUID of the user.
+    type: string
+    format: uuid
+    examples:
+      - 03703083-591e-43cb-b02f-716520a8705e
+  user_id:
+    description: The user id of the user.
+    type: integer
+    format: int64
+    examples:
+      - 2506247
+  email:
+    description: Email of the user.
+    type: string
+    format: email
+    examples:
+      - somebody@example.com
+  first_name:
+    description: The user's first name.
+    type: string
+    examples:
+      - John
+  last_name:
+    description: The user's last name.
+    type: string
+    examples:
+      - Doe
+  status:
+    description: The status of the user's account.
+    type: string
+    enum:
+      - pending-invite
+      - active
+      - disabled
+    examples:
+      - pending-invite
+  account_rbac_role:
+    $ref: ./accountRbacRole.yaml
+  is_verified:
+    description: True if the user account is verified, false if not.
+    type: boolean
+  two_factor_authentication:
+    description: Type of TFA selected for the user account, or null if disabled.
+    type:
+      - string
+      - 'null'
+    enum:
+      - email
+      - google
+    examples:
+      - email
+  created_at:
+    description: The date and time the user account was created.
+    type: string
+    format: date-time
+    examples:
+      - 2021-10-20T16:03:25+0000

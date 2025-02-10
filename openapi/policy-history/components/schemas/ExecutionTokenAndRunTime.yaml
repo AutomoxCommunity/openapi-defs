@@ -1,0 +1,28 @@
+type: object
+description: Execution Token and Run Time
+properties:
+  policy_id:
+    type: integer
+    format: int64
+    examples:
+      - 123456
+  policy_uuid:
+    type: string
+    format: uuid
+    examples:
+      - 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+  run_time:
+    type: string
+    format: date-time
+    examples:
+      - '2024-03-27T12:23:45Z'
+  execution_token:
+    type: string
+    format: uuid
+    examples:
+      - 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+example:
+  policy_id: 123456
+  policy_uuid: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+  run_time: '2024-03-27T12:23:45Z'
+  execution_token: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e

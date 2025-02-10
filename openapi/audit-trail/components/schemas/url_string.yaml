@@ -1,0 +1,3 @@
+type: string
+description: The URL of the web resource.
+example: "https://console.automox.com"

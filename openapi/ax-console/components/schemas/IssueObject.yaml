@@ -1,0 +1,6 @@
+type: object
+properties:
+  metadata:
+    $ref: ./metadataObject.yaml
+  data:
+    $ref: ./IssueData.yaml

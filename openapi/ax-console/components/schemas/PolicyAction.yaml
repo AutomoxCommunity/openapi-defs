@@ -1,0 +1,14 @@
+type: object
+properties:
+  action:
+    description: Specify the type of action.
+    type: string
+    enum:
+      - remediateAll
+      - remediateServer
+  serverId:
+    description: The ID of the target device. Use with `remediateServer`
+    type: integer
+    format: int64
+required:
+  - action

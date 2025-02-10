@@ -1,0 +1,14 @@
+type: object
+properties:
+  text:
+    type:
+      - string
+      - 'null'
+    examples:
+      - "Installed patches: \"brave-browser\" \"python3-gpg\" \"libc-ares2\" \"libgpgme11\" \"libgpgmepp6\" \"libqgpgme7\""
+  status:
+    type: integer
+    format: int64
+    examples:
+      - 1
+      - 0

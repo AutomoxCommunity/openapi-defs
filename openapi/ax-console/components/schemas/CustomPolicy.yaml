@@ -1,0 +1,103 @@
+description: Custom (Worklet) Policy object
+type: object
+properties:
+  id:
+    description: Policy ID
+    type: integer
+    format: int64
+  name:
+    type: string
+  organization_id:
+    description: Organization ID for the specified policy
+    type: integer
+    format: int64
+  policy_type_name:
+    type: string
+    default: custom
+    enum:
+      - patch
+      - custom
+      - required_software
+    x-enumDescriptions:
+      patch: Patch Policy
+      custom: Worklet Policy
+      required_software: Required Software Policy
+  configuration:
+    $ref: ./CustomPolicyConfiguration.yaml
+  schedule_days:
+    description: >-
+      Decimal value of binary day schedule. See [Policy and Device Filters, and
+      Scheduling - Example Days per
+      Week](/developer-portal/policy_filters_schedule/#example-days-per-week).
+    type: integer
+    format: int64
+  schedule_weeks_of_month:
+    description: >-
+      Decimal value of binary week schedule. See [Policy and Device Filters, and
+      Scheduling - Example Weeks per
+      Month](/developer-portal/policy_filters_schedule/#example-weeks-per-month).
+    type: integer
+    format: int64
+  schedule_months:
+    description: >-
+      Decimal value of binary month schedule. See [Policy and Device Filters,
+      and Scheduling - Example Months per
+      Year](/developer-portal/policy_filters_schedule/#example-months-per-year).
+    type: integer
+    format: int64
+  schedule_time:
+    description: 'Scheduled time for automatic policy execution. Format: `"hh:mm"`'
+    type: string
+  notes:
+    description: Any notes associated with the policy.
+    type: string
+  create_time:
+    description: The date & time that the policy was created.
+    type: string
+    format: date-time
+  next_remediation:
+    description: >-
+      The date & time that the policy is scheduled to execute next, or `null` if
+      not scheduled.
+    type:
+      - string
+      - 'null'
+  server_count:
+    description: The number of devices that the policy will execute on.
+    type: integer
+  community_worklet_id:
+    description: >-
+      The id of the community worklet associated with the policy, or `null` if
+      none.
+    type:
+      - integer
+      - 'null'
+  community_worklet_uuid:
+    description: >-
+      The uuid of the community worklet associated with the policy, or `null` if
+      none.
+    type:
+      - string
+      - 'null'
+    format: uuid
+  policy_template_id:
+    description: The id of the policy template, or `null` if none.
+    type:
+      - integer
+      - 'null'
+  server_groups:
+    description: The server groups that the policy is associated with.
+    type: array
+    items:
+      type: integer
+required:
+  - name
+  - organization_id
+  - policy_type_name
+  - schedule_days
+  - schedule_time
+  - use_scheduled_timezone
+  - configuration
+  - notes
+  - server_groups
+title: Custom (Worklet) Policy

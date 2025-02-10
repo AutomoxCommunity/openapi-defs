@@ -1,0 +1,54 @@
+type: object
+properties:
+  results:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: integer
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+        custom_name:
+          type: string
+        os_version:
+          type: string
+        os_family:
+          type: string
+        server_group:
+          type: object
+          properties:
+            id:
+              type: integer
+            organization_id:
+              type: integer
+            name:
+              type: string
+            refresh_interval:
+              type: integer
+              format: int64
+              maximum: 1440
+              minimum: 240
+            parent_server_group_id:
+              type: integer
+        tags:
+          type: array
+          items:
+            type: string
+        ip_addrs:
+          type: array
+          items:
+            type: string
+        ip_addrs_private:
+          type: array
+          items:
+            type: string
+        organizational_unit:
+          type: array
+          items:
+            type: string
+  size:
+    type: integer

@@ -1,0 +1,42 @@
+description: Create Data Extract
+type: object
+properties:
+  type:
+    description: The type of Data Extract that should be created.
+    type: string
+    default: patch-history
+    enum:
+      - patch-history
+      - api-activity
+    minLength: 1
+    x-enumDescriptions:
+      patch-history: Patch History data extract
+      api-activity: API Activity data extract
+  parameters:
+    required:
+      - start_time
+      - end_time
+    properties:
+      start_time:
+        description: >-
+          The start date and time for the report. Validation: Previous 90 days,
+          starting yesterday.
+        type: string
+        format: date-time
+        minLength: 1
+      end_time:
+        description: >-
+          The end date and time for the report. Validation: Previous 90 days,
+          starting yesterday and must be after start_time.
+        type: string
+        format: date-time
+        minLength: 1
+    type: object
+examples:
+  - type: patch-history
+    parameters:
+      start_time: '2021-05-28T13:31:57.510Z'
+      end_time: '2021-05-30T06:42:12.117Z'
+required:
+  - type
+  - parameters

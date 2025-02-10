@@ -1,0 +1,1 @@
+$apiKey = 'your_automox_api_key' $headers = @{ "Authorization" = "Bearer $apiKey" } $url = 'https://console.automox.com/api/data-extracts/000/download?o=0000' Invoke-WebRequest -Method Get -Uri $url -Headers $headers -ContentType "application/octet-stream" -OutFile "$env:userprofile\Downloads\patch-history_report.csv"

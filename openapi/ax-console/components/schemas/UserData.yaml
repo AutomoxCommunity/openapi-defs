@@ -1,0 +1,40 @@
+type: object
+properties:
+  email:
+    type: string
+    format: email
+    examples:
+        - "john.doe@example.com"
+        - "rsmith@somecompany.com"
+  orgname:
+    type: string
+    examples:
+        - "ACME Corp"
+  lastname:
+    type:
+      - string
+      - 'null'
+    examples:
+        - "Doe"
+        - "Smith"
+  trialend:
+    type:
+      - string
+      - 'null'
+    format: date-time
+    examples:
+        - "2021-01-01T00:00:00Z"
+  firstname:
+    type:
+      - string
+      - 'null'
+    examples:
+        - "John"
+        - "Robert"
+  trialstart:
+    type:
+      - string
+      - 'null'
+    format: date-time
+    examples:
+        - "2021-01-01T00:00:00Z"

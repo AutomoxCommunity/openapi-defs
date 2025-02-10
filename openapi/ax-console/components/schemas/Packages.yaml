@@ -1,0 +1,106 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int64
+  server_id:
+    type: integer
+    format: int64
+  package_id:
+    type: integer
+    format: int64
+  software_id:
+    type: integer
+    format: int64
+  installed:
+    type: boolean
+  ignored:
+    type: boolean
+  deferred_until:
+    type:
+      - string
+      - 'null'
+    format: date-time
+  name:
+    type: string
+  display_name:
+    type: string
+  version:
+    type: string
+  repo:
+    type: string
+  group_ignored:
+    type: boolean
+  group_deferred_until:
+    type:
+      - string
+      - 'null'
+    format: date-time
+  cves:
+    type: array
+    items:
+      type: string
+  cve_score:
+    type:
+      - string
+      - 'null'
+  severity:
+    type:
+      - string
+      - 'null'
+    enum:
+      - no_known_cves
+      - none
+      - unknown
+      - low
+      - medium
+      - high
+      - critical
+  package_version_id:
+    type: integer
+    format: int64
+  os_name:
+    type: string
+  os_version:
+    type: string
+  os_version_id:
+    type: integer
+    format: int64
+  create_time:
+    type: string
+    format: date-time
+  requires_reboot:
+    type: boolean
+  patch_classification_category_id:
+    type:
+      - integer
+      - 'null'
+    format: int64
+  patch_scope:
+    type:
+      - string
+      - 'null'
+  is_uninstallable:
+    type: boolean
+  secondary_id:
+    type: string
+  is_managed:
+    type: boolean
+  impact:
+    type: integer
+    format: int64
+  organization_id:
+    type: integer
+    format: int64
+  agent_severity:
+    type:
+      - string
+      - 'null'
+    enum:
+      - no_known_cves
+      - none
+      - unknown
+      - low
+      - medium
+      - high
+      - critical

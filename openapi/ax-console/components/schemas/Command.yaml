@@ -1,0 +1,51 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int64
+  server_id:
+    type: integer
+    format: int64
+  policy_id:
+    type: integer
+    format: int64
+  command_id:
+    type: integer
+    format: int64
+  command_type_name:
+    description: Type of command being issued
+    type: string
+    enum:
+      - InstallUpdate
+      - Reboot
+  args:
+    description: List of patches to apply, or NULL if issuing a Reboot
+    type:
+      - string
+      - 'null'
+    examples:
+      - KB12345 KB67890
+  response:
+    type: string
+  response_time:
+    type: string
+    format: date-time
+  create_time:
+    type: string
+    format: date-time
+  exec_time:
+    description: Time to execute the command, or NULL if issuing a Reboot
+    type:
+      - string
+      - 'null'
+    format: date-time
+    examples:
+      - '2017-06-29T16:39:50.951Z'
+examples:
+  - command_type_name: InstallUpdate
+    args: KB12345 KB67890
+    exec_time: '2017-06-29T16:39:50.951Z'
+required:
+  - args
+  - command_type_name
+  - exec_time

@@ -1,0 +1,16 @@
+type: object
+properties:
+  scheduled_time:
+    type: string
+    format: date-time
+    examples:
+      - "2021-01-01T00:00:00Z"
+  notification_id:
+    type: string
+    examples:
+      - "10af9475-fd20-4189-bb9c-e1c707ff2670"
+  last_process_time:
+    type: string
+    format: date-time
+    examples:
+      - "2021-01-01T00:00:00Z"

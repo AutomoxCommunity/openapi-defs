@@ -1,0 +1,4 @@
+type: integer
+format: int64
+description: The normalized logon type identifier.
+default: 99

@@ -1,0 +1,22 @@
+type: object
+description: Banner Stats Resource
+properties:
+  policy_success_rate:
+    type: number
+    format: double
+    examples:
+      - 95.5
+  total_policies_applied:
+    type: integer
+    format: int32
+    examples:
+      - 100
+  total_successful_devices:
+    type: integer
+    format: int32
+    examples:
+      - 95
+example:
+  policy_success_rate: 95.5
+  total_policies_applied: 100
+  total_successful_devices: 95

@@ -1,0 +1,67 @@
+- id: 123456
+  agent_version: 1.45.48
+  commands: []
+  compatibility_checks:
+    low_diskspace: false
+    missing_wmi_integrity_check: false
+    missing_powershell: false
+  compliant: false
+  connected: false
+  create_time: '2024-12-19T17:42:48+0000'
+  custom_name: ''
+  deleted: false
+  detail: {}
+  display_name: TEST
+  exception: false
+  instance_id: ''
+  ip_addrs:
+  - 123.45.67.210
+  ip_addrs_private:
+  - 192.168.8.135
+  - bcb6:a517:7ac1:7c98:0b51:bcd3:1183:82a8
+  - 3399:59b4:f568:cada:76b6:ee0c:7a0e:7a75
+  - 41c0:fdce:d075:df45:35b2:c995:7caa:73b8
+  - 44ea:9f49:34e0:ddb6:ec1c:a368:b398:4f03
+  - c5e8:d9d2:91fb:7a69:843b:d575:7dc4:2f44
+  is_compatible: true
+  is_delayed_by_notification: false
+  is_delayed_by_user: true
+  last_disconnect_time: '2025-01-22T22:18:21+0000'
+  last_logged_in_user: TEST\john.doe
+  last_process_time: '2025-01-22T22:02:14+0000'
+  last_refresh_time: '2025-01-22T20:10:26+0000'
+  last_scan_failed: true
+  last_update_time: '2024-12-25T13:32:47+0000'
+  mdm:
+  name: TEST
+  notes: ''
+  needs_attention: false
+  needs_reboot: false
+  next_patch_time: null
+  notification_count: 1
+  organization_id: 54321
+  organizational_unit: ''
+  os_family: Windows
+  os_name: 11 Home
+  os_version: 10.0.26100
+  os_version_id: 13235
+  patch_deferral_count: 0
+  patches: 2
+  pending: true
+  pending_patches: 2
+  policy_status:
+  -
+  reboot_deferral_count: 0
+  reboot_is_delayed_by_notification: false
+  reboot_is_delayed_by_user: false
+  reboot_notification_count: 0
+  refresh_interval: 360
+  serial_number: AB123ZX
+  server_group_id: 654321
+  server_policies: []
+  status: {}
+  tags: []
+  timezone: UTC-0500
+  total_count: 1
+  uptime: '170878'
+  uuid: 1b597490-18f9-4ef4-957d-5e986921ebc1

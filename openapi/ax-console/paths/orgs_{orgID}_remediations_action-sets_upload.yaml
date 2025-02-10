@@ -1,0 +1,83 @@
+post:
+  operationId: uploadRemediationCSV
+  summary: Upload a CSV file to Automox
+  description: Upload a CSV file to Automox. Maximum file size = 20,000 rows
+  parameters:
+    - name: orgID
+      in: path
+      description: The organization ID of the target organization.
+      required: true
+      schema:
+        type: integer
+    - name: source
+      in: query
+      description: >-
+        The source of the CSV. Acceptable values: generic | qualys | tenable |
+        crowd-strike | rapid7
+      required: true
+      schema:
+        type: string
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          properties:
+            file:
+              type: string
+            format:
+              type: string
+              default: crowd-strike
+              enum:
+                - crowd-strike
+                - rapid7
+                - tenable
+                - generic
+                - qualys
+          required:
+            - file
+            - format
+        encoding:
+          file:
+            contentType: text/csv
+  responses:
+    '201':
+      description: >-
+        Successful Operation - The response will contain a location header
+        containing the path to the newly created action set.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/ActionSet.yaml
+    '400':
+      $ref: ../components/responses/Error.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/UnauthorizedAction.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '413':
+      $ref: ../components/responses/PayloadTooLarge.yaml
+    '429':
+      $ref: ../components/responses/RateLimit.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml
+  tags:
+    - Vulnerability Sync CSV Actions
+  x-codeSamples:
+    - lang: PowerShell
+      source:
+        $ref: >-
+          ../code_samples/PowerShell/orgs_{orgID}_remediations_action-sets_upload/post.ps1
+    - lang: Python
+      source:
+        $ref: >-
+          ../code_samples/Python/orgs_{orgID}_remediations_action-sets_upload/post.py
+  x-meta:
+    seo:
+      title: Automox Remediations API Docs | Upload a CSV Remediation Batch
+      description: >-
+        Upload a CSV Remediation Action Set for Vulnerability Sync to a given
+        organization, for which the authenticated user has access.

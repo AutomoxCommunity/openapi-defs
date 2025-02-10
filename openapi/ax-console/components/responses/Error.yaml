@@ -1,0 +1,10 @@
+description: Invalid Request
+content:
+  application/json:
+    schema:
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+          maxItems: 1

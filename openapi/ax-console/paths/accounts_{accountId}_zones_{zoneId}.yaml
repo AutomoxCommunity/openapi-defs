@@ -1,0 +1,43 @@
+get:
+  operationId: getZone
+  summary: Retrieve information for a specific zone.
+  description: Retrieve information for a specific zone.
+  parameters:
+    - name: accountId
+      in: path
+      description: Account ID for the specified account
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - name: zoneId
+      in: path
+      description: ID for the specified zone
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    '200':
+      description: Successful Operation
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/zone.yaml
+    '400':
+      $ref: ../components/responses/Error.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/UnauthorizedAction.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '429':
+      $ref: ../components/responses/RateLimit.yaml
+  tags:
+    - AMS
+    - Zone Management
+  x-codeSamples:
+    - lang: PowerShell
+      source:
+        $ref: ../code_samples/PowerShell/accounts_{accountId}_zones_{zoneId}/get.ps1

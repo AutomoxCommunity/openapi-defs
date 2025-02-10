@@ -1,0 +1,15 @@
+type: object
+description: Policy Runs Response
+properties:
+  data:
+    type: array
+    items:
+      $ref: ./PolicyExecutionWithRunCount.yaml
+example:
+  data:
+    - org_uuid: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+      policy_id: 123456
+      policy_name: Patch Tuesday
+      policy_uuid: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+      exec_time: '2024-03-27T12:23:45Z'
+      run_count: 100

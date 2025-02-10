@@ -1,0 +1,85 @@
+get:
+  operationId: retrieveIssuesList
+  summary: >-
+    Retrieves a paged list of issues found when ingesting the data from the
+    vulnerability report to create an action set.
+  description: >-
+    Retrieves a paged list of issues found when ingesting the data from the
+    vulnerability report to create an action set.
+  parameters:
+    - name: orgID
+      in: path
+      description: The organization ID of the target organization.
+      required: true
+      schema:
+        type: integer
+    - name: actionSetID
+      in: path
+      description: The ID of the target Action Set.
+      required: true
+      schema:
+        type: integer
+    - name: page
+      in: query
+      description: 'First page of data to display. Default: 0'
+      required: false
+      schema:
+        type: integer
+        default: 0
+    - name: limit
+      in: query
+      description: Maximum number of results to display.
+      required: false
+      schema:
+        type: integer
+    - name: issue_type:in[]
+      in: query
+      description: Filter on issue type.
+      required: false
+      schema:
+        type: string
+        enum:
+          - unknown-host
+  responses:
+    '200':
+      description: Successful Operation
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/IssueObject.yaml
+          example:
+            metadata:
+              total_pages: 1
+              current_page: 0
+              limit: 500
+              total_count: 1
+            data:
+              - id: 1
+                issue_type: unknown-host
+                issue_details:
+                  hostname: DalePC
+    '400':
+      $ref: ../components/responses/Error.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/UnauthorizedAction.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '429':
+      $ref: ../components/responses/RateLimit.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml
+  tags:
+    - Vulnerability Sync Action Sets
+  x-codeSamples:
+    - lang: PowerShell
+      source:
+        $ref: >-
+          ../code_samples/PowerShell/orgs_{orgID}_remediations_action-sets_{actionSetID}_issues/get.ps1
+  x-meta:
+    seo:
+      title: Automox Remediations API Docs | List Action Set Issues
+      description: >-
+        Retrieves Issues in a given Action Set, in a given organization, for
+        which the authenticated user has access.

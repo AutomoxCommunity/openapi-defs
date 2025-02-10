@@ -1,0 +1,20 @@
+type: object
+description: >-
+  The organization object describes details about the organization that the user
+  is a member of.
+properties:
+  uid:
+    $ref: ./uid.yaml
+  email_addr:
+    $ref: ./email_addr.yaml
+  groups:
+    $ref: ./groups.yaml
+example:
+  uid: '1209412'
+  email_addr: user.assigned@automox.com
+  groups:
+    - type: organization
+      name: ZoneName
+      uid: 259c001d-1540-47c9-83f3-c940867c53ec
+      privileges:
+        - Billing Administrator

@@ -1,0 +1,12 @@
+description: RBAC role assigned to a zone for a user.
+type: string
+enum:
+  - zone-admin
+  - billing-admin
+  - read-only
+  - zone-operator
+  - patch-operator
+  - helpdesk-operator
+examples:
+  - zone-admin
+title: zone-rbac-role

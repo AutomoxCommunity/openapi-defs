@@ -1,0 +1,41 @@
+type: object
+description: Policy Info Resource
+properties:
+  id:
+    type: integer
+    format: int64
+    examples:
+      - 123456
+  uuid:
+    type: string
+    format: uuid
+    examples:
+      - 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+  org_uuid:
+    type: string
+    format: uuid
+    examples:
+      - 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+  name:
+    type: string
+    examples:
+      - Patch Tuesday
+  type:
+    type: string
+    examples:
+      - patch
+  deleted_at:
+    type: string
+    format: date-time
+    examples:
+      - '2024-03-27T12:23:45Z'
+  updated_at:
+    type: string
+    format: date-time
+    examples:
+      - '2024-03-27T12:23:45Z'
+  last_run_time:
+    type: string
+    format: date-time
+    examples:
+      - '2024-03-27T12:23:45Z'

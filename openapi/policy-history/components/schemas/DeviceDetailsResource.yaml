@@ -1,0 +1,96 @@
+type: object
+description: Device Policy Run Details
+properties:
+  device_id:
+    type: integer
+    format: int64
+    examples:
+      - 250624
+  device_uuid:
+    type: string
+    format: uuid
+    examples:
+      - 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+  hostname:
+    type: string
+    examples:
+      - WIN-RM1OMA6IBCA
+  custom_name:
+    type: string
+    examples:
+      - Marcus' Macbook Pro
+  display_name:
+    type: string
+    examples:
+      - Marcus' Macbook Pro
+  result_status:
+    type: string
+    examples:
+      - success
+  result-reason:
+    type: string
+  run_time:
+    type: string
+    format: date-time
+    examples:
+      - '2024-03-27T12:23:45Z'
+  event_time:
+    type: string
+    format: date-time
+    examples:
+      - '2024-03-27T12:23:45Z'
+  patches:
+    type: array
+    items:
+      type: string
+  stdout:
+    type: string
+  stderr:
+    type: string
+  exit_code:
+    type: integer
+    format: int32
+  device_deleted_at:
+    type: string
+    format: date-time
+    examples:
+      - '2024-03-27T12:23:45Z'
+  policy_id:
+    type: integer
+    format: int64
+    examples:
+      - 123456
+  policy_uuid:
+    type: string
+    format: uuid
+    examples:
+      - 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+  policy_name:
+    type: string
+    examples:
+      - Patch Tuesday
+  policy_type:
+    type: string
+    examples:
+      - patch
+example:
+  device_id: 250624
+  device_uuid: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+  hostname: WIN-RM1OMA6IBCA
+  custom_name: Marcus' Macbook Pro
+  display_name: Marcus' Macbook Pro
+  result_status: success
+  result-reason: ""
+  run_time: '2024-03-27T12:23:45Z'
+  event_time: '2024-03-27T12:23:45Z'
+  patches:
+    - KB123456
+    - KB234567
+  stdout: "Successfully installed KB123456\nSuccessfully installed KB234567\n"
+  stderr: ""
+  exit_code: 0
+  device_deleted_at: '2024-03-27T12:23:45Z'
+  policy_id: 123456
+  policy_uuid: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+  policy_name: Patch Tuesday
+  policy_type: patch

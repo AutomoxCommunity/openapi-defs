@@ -1,0 +1,44 @@
+type: object
+properties:
+  id:
+    description: Invitation ID
+    type: string
+    format: uuid
+    examples:
+      - 098d6f56-53a0-4803-9271-f608d4faeb36
+  account_id:
+    description: ID of the account the user is being invited to.
+    type: string
+    format: uuid
+  account_rbac_role:
+    $ref: ./accountRbacRole.yaml
+  inviter:
+    $ref: ./inviter.yaml
+  email:
+    description: Email address if the user does not exist yet.
+    type: string
+    format: email
+    examples:
+      - jane.doe@example.com
+  zones:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        rbac_role:
+          $ref: ./zoneRbacRole.yaml
+  created_at:
+    description: The date and time the invitation was created.
+    type: string
+    format: date-time
+    examples:
+      - 2021-10-20T16:03:25+0000
+  updated_at:
+    description: The date and time the invitation was updated.
+    type: string
+    format: date-time
+    examples:
+      - 2021-10-20T16:03:25+0000

@@ -1,0 +1,106 @@
+get:
+  tags:
+    - Policy Runs
+  summary: Policy Executions per Policy
+  description: Retrieve all policy executions for a policy
+  operationId: executionsByPolicy
+  parameters:
+    - name: org
+      in: query
+      description: Organization UUID
+      required: true
+      schema:
+        type: string
+        format: uuid
+      examples:
+        OrgUUIDExample:
+          value: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+    - name: policy_uuid
+      in: path
+      description: Policy UUID
+      required: true
+      schema:
+        type: string
+        format: uuid
+      examples:
+        PolicyUUIDExample:
+          value: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+    - name: report_days
+      in: query
+      description: Number of Days Before Today's Date
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 7
+      examples:
+        DaysExample:
+          value: 7
+    - name: sort
+      in: query
+      description: Sort by `run_time`
+      required: false
+      schema:
+        type: string
+        description: Comma delimited list of sorts to apply
+      examples:
+        SortExample:
+          value: run_time:asc
+  x-codeSamples:
+    - lang: PowerShell
+      source:
+        $ref: >-
+          ../code_samples/PowerShell/policy-history_policy-runs_{policy_uuid}/get.ps1
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RunsByPolicyResponse.yaml
+          example:
+            data:
+              runs:
+                - policy_uuid: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+                  policy_id: 123456
+                  org_uuid: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+                  policy_name: Patch Tuesday
+                  policy_type: patch
+                  policy_deleted_at: '2024-03-27T12:23:45Z'
+                  device_count: 100
+                  pending: 10
+                  success: 80
+                  remediation_not_applicable: 5
+                  failed: 5
+                  run_time: '2024-03-27T12:23:45Z'
+                  execution_token: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+                  run_count: 100
+                  not_included: 5
+              banner_stats:
+                policy_success_rate: 95.5
+                total_policies_applied: 100
+                total_successful_devices: 95
+            metadata:
+              total_run_count: 100
+              last_run_time: '2024-03-27T12:23:45Z'
+    '400':
+      description: Bad Request
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      description: Unauthorized
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      description: Unauthorized Action
+      $ref: ../components/responses/UnauthorizedAction.yaml
+    '404':
+      description: Not Found
+      $ref: ../components/responses/NotFound.yaml
+    '408':
+      description: Request Timeout
+      $ref: ../components/responses/RequestTimeout.yaml
+    '429':
+      description: Rate Limit
+      $ref: ../components/responses/RateLimit.yaml
+    '500':
+      description: Service Unavailable
+      $ref: ../components/responses/ServiceUnavailable.yaml

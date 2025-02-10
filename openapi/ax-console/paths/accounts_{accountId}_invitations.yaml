@@ -1,0 +1,66 @@
+post:
+  operationId: createInvitation
+  summary: Create a new account invitation.
+  description: >-
+    Invite a user to the account with the ability to grant access to one or many
+    zones.
+  parameters:
+    - name: accountId
+      in: path
+      description: Account ID to list invitations for.
+      required: true
+      schema:
+        type: string
+        format: uuid
+  requestBody:
+    $ref: ../components/requestBodies/accountInvite.yaml
+  responses:
+    '201':
+      description: Successful Operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/invitation.yaml
+          example:
+            - id: a75c3a2f-9c02-0479-8472-a17a25228fc5
+              account_id: c0faadbe-7246-24e6-5daa-9861d44b3660
+              account_rbac_role: global-admin
+              inviter:
+                id: 97149829
+                uuid: e15021df-8122-c87c-4180-79084cba5a62
+                email: jane.doe@example.com
+                first_name: Jane
+                last_name: Doe
+                status: active
+                account_rbac_role: global-admin
+                is_verified: true
+                two_factor_authentication: email
+                created_at: '2021-08-02T22:33:30.281Z'
+              email: john.doe@example.com
+              zones:
+                - id: 3a55518d-2488-6f4e-55fb-a40fc120cd12
+                  rbac_role: zone-admin
+                - id: 470b44ab-f667-b9bb-fcab-d8faf8696b24
+                  rbac_role: zone-admin
+              created_at: '2021-03-04T23:57:24.953Z'
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/UnauthorizedAction.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '409':
+      $ref: ../components/responses/BadRequest.yaml
+    '429':
+      $ref: ../components/responses/RateLimit.yaml
+  tags:
+    - Webserver
+    - Account Users
+  x-codeSamples:
+    - lang: PowerShell
+      source:
+        $ref: ../code_samples/PowerShell/accounts_{accountId}_invitations/post.ps1

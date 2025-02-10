@@ -1,0 +1,37 @@
+type: object
+description: Collection Metadata
+properties:
+  current_page:
+    type: integer
+    description: Current Page
+    format: int32
+    examples:
+      - 1
+  total_pages:
+    type: integer
+    description: Total Pages
+    format: int32
+    examples:
+      - 100
+  total_count:
+    type: integer
+    description: Total Record Count
+    format: int64
+    examples:
+      - 1300
+  limit:
+    type: integer
+    description: Limit of Records Per Page
+    format: int32
+    examples:
+      - 25
+  links:
+    $ref: ./CollectionMetaDataLinks.yaml
+example:
+  current_page: 0
+  total_pages: 100
+  total_count: 1300
+  limit: 25
+  links:
+    previous: ''
+    next: policyreport.automox.com?page=1&limit=25

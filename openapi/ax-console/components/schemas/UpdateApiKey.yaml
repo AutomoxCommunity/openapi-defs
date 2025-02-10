@@ -1,0 +1,7 @@
+description: Enable/Disable API key
+type: object
+properties:
+  is_enabled:
+    type: boolean
+required:
+  - is_enabled

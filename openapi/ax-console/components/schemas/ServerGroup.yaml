@@ -1,0 +1,32 @@
+type: object
+properties:
+  id:
+    type: integer
+  organization_id:
+    type: integer
+    format: int64
+  name:
+    type: string
+  refresh_interval:
+    type: integer
+    format: int64
+    maximum: 1440
+    minimum: 240
+  parent_server_group_id:
+    type: integer
+  ui_color:
+    type: string
+  notes:
+    type: string
+  enable_os_auto_update:
+    type:
+      - boolean
+      - 'null'
+  server_count:
+    type: integer
+  wsus_config:
+    $ref: ./WsusConfig.yaml
+  policies:
+    type: array
+    items:
+      type: integer

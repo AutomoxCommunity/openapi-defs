@@ -1,0 +1,68 @@
+description: A DataExtract job
+type: object
+properties:
+  id:
+    type: integer
+  organization_id:
+    type: integer
+  user_id:
+    type: integer
+  status:
+    type: string
+    enum:
+      - queued
+      - running
+      - complete
+      - failed
+      - canceled
+      - expired
+    minLength: 1
+  is_completed:
+    type: boolean
+  created_at:
+    type: string
+    format: date-time
+    minLength: 1
+  download_expires_at:
+    type:
+      - string
+      - 'null'
+    format: date-time
+  download_url:
+    type:
+      - string
+      - 'null'
+  parameters:
+    required:
+      - start_time
+      - end_time
+    properties:
+      start_time:
+        type: string
+        format: date-time
+      end_time:
+        type: string
+        format: date-time
+    type: object
+examples:
+  - id: 75
+    organization_id: 1
+    user_id: 1
+    status: queued
+    is_completed: false
+    created_at: 2021-03-30T16:03:04.608690+0000
+    download_expires_at: null
+    download_url: null
+    parameters:
+      start_time: 2021-02-03T00:00:00+0000
+      end_time: 2021-03-18T16:19:00+0000
+required:
+  - id
+  - organization_id
+  - user_id
+  - status
+  - is_completed
+  - created_at
+  - download_expires_at
+  - download_url
+  - parameters

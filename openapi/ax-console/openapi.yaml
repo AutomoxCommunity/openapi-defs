@@ -1,0 +1,221 @@
+openapi: 3.1.0
+info:
+  title: Automox Console API
+  description: API for use with the Automox Console
+  version: '2025-01-27'
+  contact:
+    name: Automox Support
+    url: https://help.automox.com/hc/en-us/requests/new
+    email: support@automox.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: https://console.automox.com/api
+paths:
+  /events:
+    $ref: './paths/events.yaml'
+  /servers:
+    $ref: './paths/servers.yaml'
+  /servers/{id}:
+    $ref: './paths/servers_{id}.yaml'
+  /servers/batch:
+    $ref: './paths/servers_batch.yaml'
+  /servers/{id}/packages:
+    $ref: './paths/servers_{id}_packages.yaml'
+  /servers/{id}/queues:
+    $ref: './paths/servers_{id}_queues.yaml'
+  /servergroups:
+    $ref: './paths/servergroups.yaml'
+  /servergroups/{id}:
+    $ref: './paths/servergroups_{id}.yaml'
+  /orgs:
+    $ref: './paths/orgs.yaml'
+  /orgs/{id}/packages:
+    $ref: './paths/orgs_{id}_packages.yaml'
+  /orgs/{id}/api_keys:
+    $ref: './paths/orgs_{id}_api_keys.yaml'
+  /policies:
+    $ref: './paths/policies.yaml'
+  /policies/{id}:
+    $ref: './paths/policies_{id}.yaml'
+  /policies/{id}/files:
+    $ref: './paths/policies_{id}_files.yaml'
+  /policies/{id}/action:
+    $ref: './paths/policies_{id}_action.yaml'
+  /policies/device-filters-preview:
+    $ref: './paths/policies_device-filters-preview.yaml'
+  /policystats:
+    $ref: './paths/policystats.yaml'
+  /reports/prepatch:
+    $ref: './paths/reports_prepatch.yaml'
+  /reports/needs-attention:
+    $ref: './paths/reports_needs-attention.yaml'
+  /approvals:
+    $ref: './paths/approvals.yaml'
+  /approvals/{id}:
+    $ref: './paths/approvals_{id}.yaml'
+  /users:
+    $ref: './paths/users.yaml'
+  /users/{userId}:
+    $ref: './paths/users_{userId}.yaml'
+  /users/{userId}/api_keys:
+    $ref: './paths/users_{userId}_api_keys.yaml'
+  /users/{userId}/api_keys/{id}:
+    $ref: './paths/users_{userId}_api_keys_{id}.yaml'
+  /users/{userId}/api_keys/{id}/decrypt:
+    $ref: './paths/users_{userId}_api_keys_{id}_decrypt.yaml'
+  /worklet-catalog:
+    $ref: './paths/worklet-catalog.yaml'
+  /worklet-catalog/{UUID-legacy_id}:
+    $ref: './paths/worklet-catalog_{UUID-legacy_id}.yaml'
+  /data-extracts:
+    $ref: './paths/data-extracts.yaml'
+  /data-extracts/{id}:
+    $ref: './paths/data-extracts_{id}.yaml'
+  /data-extracts/{id}/download:
+    $ref: './paths/data-extracts_{id}_download.yaml'
+  /accounts/{accountId}/rbac-roles:
+    $ref: './paths/accounts_{accountId}_rbac-roles.yaml'
+  /accounts/{accountId}:
+    $ref: './paths/accounts_{accountId}.yaml'
+  /accounts/{accountId}/users/{userId}:
+    $ref: './paths/accounts_{accountId}_users_{userId}.yaml'
+  /accounts/{accountId}/users/{userId}/zones:
+    $ref: './paths/accounts_{accountId}_users_{userId}_zones.yaml'
+  /accounts/{accountId}/invitations:
+    $ref: './paths/accounts_{accountId}_invitations.yaml'
+  /accounts/{accountId}/zones:
+    $ref: './paths/accounts_{accountId}_zones.yaml'
+  /accounts/{accountId}/zones/{zoneId}:
+    $ref: './paths/accounts_{accountId}_zones_{zoneId}.yaml'
+  /accounts/{accountId}/zones/{zoneId}/users:
+    $ref: './paths/accounts_{accountId}_zones_{zoneId}_users.yaml'
+  /accounts/{accountId}/zones/{zoneId}/users/{userId}:
+    $ref: './paths/accounts_{accountId}_zones_{zoneId}_users_{userId}.yaml'
+  /policies/{policyId}/clone:
+    $ref: './paths/policies_{policyId}_clone.yaml'
+  /orgs/{orgID}/remediations/action-sets/upload/formats:
+    $ref: './paths/orgs_{orgID}_remediations_action-sets_upload_formats.yaml'
+  /orgs/{orgID}/remediations/action-sets/upload:
+    $ref: './paths/orgs_{orgID}_remediations_action-sets_upload.yaml'
+  /orgs/{orgID}/remediations/action-sets/{actionSetID}:
+    $ref: './paths/orgs_{orgID}_remediations_action-sets_{actionSetID}.yaml'
+  /orgs/{orgID}/remediations/action-sets/{actionSetID}/solutions:
+    $ref: './paths/orgs_{orgID}_remediations_action-sets_{actionSetID}_solutions.yaml'
+  /orgs/{orgID}/remediations/action-sets/{actionSetID}/issues:
+    $ref: './paths/orgs_{orgID}_remediations_action-sets_{actionSetID}_issues.yaml'
+  /orgs/{orgID}/remediations/action-sets:
+    $ref: './paths/orgs_{orgID}_remediations_action-sets.yaml'
+  /orgs/{orgID}/remediations/action-sets/{actionSetID}/actions:
+    $ref: './paths/orgs_{orgID}_remediations_action-sets_{actionSetID}_actions.yaml'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: Accounts
+    description: >-
+      Actions for accounts. These API(s) require the Global Admin account RBAC
+      role.
+  - name: AMS
+    description: API(s) powered by AMS in Phase 1.
+  - name: Invitations
+    description: Actions for account invitations
+  - name: RBAC
+    description: Actions for RBAC.
+  - name: Users
+    description: Actions for users.
+  - name: Webserver
+    description: API(s) powered by Webserver in Phase 1.
+  - name: Account Management
+    description: >-
+      Actions for Account Management. These API(s) require the Global Admin
+      account RBAC role.
+  - name: Account Users
+    description: >-
+      Actions for Account User Management. These API(s) require the Global Admin
+      account RBAC role.
+  - name: Zone Management
+    description: Actions for Zone Management
+  - name: Zone Users
+    description: Actions for Zone User Management
+  - name: Policy Management
+    description: Actions related to Policy Management
+  - name: API Keys
+    description: Actions involving API key objects.
+  - name: Approvals
+    description: Actions involving manual approvals.
+  - name: Commands
+    description: Issues a command to an Automox device.
+  - name: Devices
+    description: Actions for Automox Servers/Endpoints.
+  - name: Events
+    description: Lists Event Objects for the Authenticated User.
+  - name: Extracts
+    description: Actions for Data Extracts
+  - name: Groups
+    description: Actions for Automox Groups.
+  - name: Organizations
+    description: Actions for Automox Organizations.
+  - name: Packages
+    description: Software Package Actions.
+  - name: Policies
+    description: Actions for Automox Policies.
+  - name: Reports
+    description: Retrieves Automox Reports.
+  - name: Users
+    description: Actions for Automox Users.
+  - name: Vulnerability Sync CSV Actions
+    description: Actions involving CSV uploads for Vulnerability Sync
+  - name: Vulnerability Sync Action Sets
+    description: Actions for Vulnerability Sync Action Sets
+  - name: Worklets
+    description: Actions for Worklets.
+x-tagGroups:
+  - name: Device Management
+    description: Actions for Automox Devices
+    tags:
+      - Commands
+      - Devices
+      - Packages
+      - Worklets
+  - name: Group Management
+    description: Actions for Automox Groups
+    tags:
+      - Groups
+  - name: Organization Management
+    description: Actions for Automox Organizations
+    tags:
+      - Approvals
+      - Events
+      - Extracts
+      - Organizations
+  - name: Policy Management
+    description: Actions for Automox Policies
+    tags:
+      - Policies
+  - name: User Management
+    description: Actions for Automox Users
+    tags:
+      - API Keys
+      - Users
+  - name: Account Management
+    tags:
+      - Account Management
+      - Account Users
+  - name: Zone Management
+    tags:
+      - Zone Management
+      - Zone Users
+      - Policy Management
+  - name: Remediations
+    tags:
+      - Vulnerability Sync CSV Actions
+      - Vulnerability Sync Action Sets
+  - name: Reports
+    tags:
+      - Reports
+security:
+  - bearerAuth: []

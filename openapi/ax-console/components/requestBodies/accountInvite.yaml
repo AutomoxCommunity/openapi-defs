@@ -1,0 +1,37 @@
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        email:
+          type: string
+        account_rbac_role:
+          type: string
+          enum:
+            - global-admin
+            - non-global-admin
+        zone_assignments:
+          type: array
+          items:
+            type: object
+            properties:
+              zone_id:
+                description: The ID of the zone to grant access to.
+                type: string
+                format: uuid
+              rbac_role:
+                $ref: ../schemas/zoneRbacRole.yaml
+            required:
+              - zone_id
+              - rbac_role
+      examples:
+        - email: john.doe@example.com
+          account_rbac_role: global-admin
+          zone_assignments:
+            - zone_id: 3a55518d-2488-6f4e-55fb-a40fc120cd12
+              rbac_role: zone-admin
+            - zone_id: 470b44ab-f667-b9bb-fcab-d8faf8696b24
+              rbac_role: zone-admin
+      required:
+        - email
+        - account_rbac_role

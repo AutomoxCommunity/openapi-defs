@@ -1,0 +1,2 @@
+type: integer
+description: ID of the zone the user is getting assigned to.

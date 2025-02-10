@@ -1,0 +1,57 @@
+put:
+  operationId: updateApprovals
+  summary: Update manual approval record
+  description: >-
+    Update a manual approval record. Set the `manual_approval` attribute of
+    approval object to `true` to approve a patch; set it to `false` to reject a
+    patch.
+  parameters:
+    - name: id
+      in: path
+      description: >-
+        Approval ID. Contact [Automox Support](mailto:support@automox.com) for
+        further assistance.
+      required: true
+      schema:
+        type: integer
+    - name: o
+      in: query
+      description: The organization ID for the target organization.
+      required: true
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/ApprovePolicy.yaml
+  responses:
+    '200':
+      description: Successful Operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/SoftwareApprovals.yaml
+    '400':
+      $ref: ../components/responses/Error.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/UnauthorizedAction.yaml
+    '429':
+      $ref: ../components/responses/RateLimit.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml
+    default:
+      $ref: ../components/responses/Error.yaml
+  tags:
+    - Approvals
+  x-meta:
+    seo:
+      title: Automox Console API Docs | Update a Manual Approval record.
+      description: >-
+        Update a Manual Approval record to either approve or reject a given
+        software patch. Contact Automox Support for Approval ID.

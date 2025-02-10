@@ -1,0 +1,82 @@
+get:
+  operationId: getZonesForUser
+  summary: Get zones a user has been granted access to.
+  description: Retrieve zones a user has been granted access to.
+  parameters:
+    - name: accountId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - name: userId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              metadata:
+                $ref: ../components/schemas/metadataObject.yaml
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    rbac_role:
+                      $ref: ../components/schemas/zoneRbacRole.yaml
+                    zone:
+                      $ref: ../components/schemas/zone.yaml
+          example:
+            data:
+              - rbac_role: zone-admin
+                zone:
+                  id: bbe165cb-4793-48d5-8ffa-64973ef6e9d0
+                  organization_id: 100751
+                  account_id: a18afd39-1182-4a78-8cd9-b410b9de2ea0
+                  parent_id: 80c80102-2d0f-4c30-92c7-5c9e0ce102d0
+                  name: Test Zone 2
+                  created_by:
+                    id: 56e207a9-3b3e-48f1-b738-4172f11f70fd
+                    user_id: 50687
+                    email: john.doe@example.com
+                    first_name: John
+                    last_name: Doe
+                    status: active
+                    account_rbac_role: global-admin
+                    is_verified: true
+                    two_factor_authentication: email
+                    created_at: 2021-10-20T16:03:25+0000
+                  access_key: 411747da-9467-41e5-920c-35142d47a06f
+                  created_at: 2022-01-04T04:36:39+0000
+                  updated_at: 2022-01-04T04:36:39+0000
+            metadata:
+              total_pages: 1
+              current_page: 0
+              total_count: 2
+              limit: 500
+    '400':
+      $ref: ../components/responses/Error.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/UnauthorizedAction.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '429':
+      $ref: ../components/responses/RateLimit.yaml
+  tags:
+    - Webserver
+    - Account Users
+  x-codeSamples:
+    - lang: PowerShell
+      source:
+        $ref: >-
+          ../code_samples/PowerShell/accounts_{accountId}_users_{userId}_zones/get.ps1

@@ -1,0 +1,20 @@
+type: object
+properties:
+  field:
+    type: string
+    description: Request field with error
+    examples:
+      - fieldName
+  errors:
+    type: array
+    description: List of errors encountered
+    items:
+      type: string
+      description: List of errors encountered
+      examples:
+        - '["An error message"]'
+description: Validation errors
+example:
+  field: fieldName
+  errors:
+    - An error message

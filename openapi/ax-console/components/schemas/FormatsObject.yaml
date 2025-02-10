@@ -1,0 +1,11 @@
+type: object
+properties:
+  name:
+    type: string
+  format:
+    type: string
+    default: csv
+  headers:
+    type: array
+    items:
+      $ref: ./HeaderObject.yaml

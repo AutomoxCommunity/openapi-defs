@@ -1,0 +1,126 @@
+type: object
+properties:
+  secrets:
+    description: >-
+      This object can optionally contain multiple objects containing information
+      about secrets associated with the policy.
+    type: object
+    patternProperties:
+      ^[a-zA-Z][a-zA-Z0-9_]+:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+          organizationId:
+            type: string
+            format: uuid
+          name:
+            type: string
+          description:
+            type: string
+          numPolicies:
+            type: integer
+          createdAt:
+            type: string
+            format: date-time
+  os_family:
+    description: Define the OS family of the worklet policy
+    type: string
+    enum:
+      - Windows
+      - Mac
+      - Linux
+  auto_reboot:
+    description: Enable or Disable automatic reboots following policy execution.
+    type: boolean
+  device_filters:
+    $ref: ./DeviceFilters.yaml
+  evaluation_code:
+    description: The evaluation code of the worklet.
+    type:
+      - string
+      - 'null'
+  remediation_code:
+    description: The remediation code of the worklet.
+    type:
+      - string
+      - 'null'
+  installation_code:
+    description: The installation code of the worklet.
+    type:
+      - string
+      - 'null'
+  notify_reboot_user:
+    description: >-
+      Display modified notification 15 minutes before patching. This message
+      should inform the user that a reboot will follow patching actions.
+    type: boolean
+  use_scheduled_timezone:
+    description: >-
+      Determines whether to use UTC or the local time of the device for policy
+      execution. `true` = policy executes at the scheduled time in UTC, `false`
+      = policy executes at the scheduled time using the device's local time.
+    type: boolean
+  refresh_before_remediation:
+    description: Determines whether to rescan the device before the policy executes.
+    type: boolean
+  notify_deferred_reboot_user:
+    description: >-
+      If `true`, this shows a post-install reboot notification message, if
+      `notify_reboot_deferred` is also `true`. If `notify_reboot_deferred` is
+      `false` or `null`, this will sync with the existing `notify_reboot_user`
+      parameter.
+    type: boolean
+  custom_notification_max_delays:
+    description: >-
+      Maximum number of times a user is allowed to defer the reboot. The default
+      is 0.
+    type: integer
+  pending_reboot_deferral_enabled:
+    description: Determines whether deferrals are enabled or disabled for pending reboots.
+    type: boolean
+  custom_pending_reboot_notification_message:
+    description: Custom reboot message.
+    type: string
+    maxLength: 125
+  notify_deferred_reboot_user_message_timeout:
+    description: >-
+      The amount of time a deferrable reboot notification message appears before
+      timing out and closing. Min: 15 min. Max: 480 min. Default is 15 minutes.
+    type: integer
+    default: 15
+    maximum: 480
+    minimum: 15
+  custom_pending_reboot_notification_max_delays:
+    description: >-
+      Maximum number of times a user is allowed to defer the reboot. The default
+      is 0.
+    type: integer
+    format: int64
+    default: 0
+  custom_pending_reboot_notification_message_mac:
+    description: >-
+      The custom reboot message for macOS, which overrides
+      `custom_pending_reboot_notification_message` string, if provided.
+    type: string
+    maxLength: 70
+  notify_deferred_reboot_user_auto_deferral_enabled:
+    description: >-
+      If a reboot notification times out, apply the highest configured reboot
+      deferral.
+    type: boolean
+    default: false
+  custom_pending_reboot_notification_deferment_periods:
+    description: >-
+      The time period options available to defer a reboot for each deferral
+      selection. Default values: 1, 4, 8
+    type: array
+    items:
+      type: integer
+    default:
+      - 1
+      - 4
+      - 8
+required:
+  - auto_reboot

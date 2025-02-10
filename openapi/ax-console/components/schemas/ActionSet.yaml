@@ -1,0 +1,60 @@
+type: object
+properties:
+  id:
+    type: integer
+  statistics:
+    type: object
+    properties:
+      issues:
+        type: object
+        properties:
+          unknown-host:
+            type: object
+            properties:
+              count:
+                type: integer
+      solutions:
+        type: object
+        properties:
+          patch-now:
+            type: object
+            properties:
+              count:
+                type: integer
+              device_count:
+                type: integer
+              vulnerability_count:
+                type: integer
+          patch-with-worklet:
+            type: object
+            properties:
+              count:
+                type: integer
+              device_count:
+                type: integer
+              vulnerability_count:
+                type: integer
+  configuration_id:
+    type: string
+    format: uuid
+  organization_id:
+    type: integer
+  status:
+    type: string
+  source:
+    type: object
+    properties:
+      name:
+        type: string
+      type:
+        type: string
+  created_by_user:
+    $ref: ./UserObject.yaml
+  updated_by_user:
+    $ref: ./UserObject.yaml
+  created_at:
+    type: string
+    format: date-time
+  updated_at:
+    type: string
+    format: date-time

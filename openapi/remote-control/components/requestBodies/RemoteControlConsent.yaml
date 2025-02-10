@@ -1,0 +1,26 @@
+description: Remote Control Consent
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - device_uuids
+        - config
+      properties:
+        device_uuids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: UUIDs of devices to configure RC consent.
+          example:
+            - a4603e09-7cab-4e0f-ad6b-c484436e74fc
+            - 1a2b3c4d-5e6f-7a8b-9c0d-e1f2a3b4c5d6
+            - 7a8b9c0d-e1f2-a3b4-c5d6-e7f8a9b0c1d2
+        config:
+          type: object
+          properties:
+            bypass_consent:
+              type: boolean
+              description: Whether to bypass consent.
+              example: true

@@ -1,0 +1,4 @@
+type: integer
+format: int64
+description: The time the event occurred, in Unix epoch time.
+example: 1616421600

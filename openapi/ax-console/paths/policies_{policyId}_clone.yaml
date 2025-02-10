@@ -1,0 +1,35 @@
+post:
+  operationId: clonePolicy
+  summary: Clone a Patch Policy to a list of Zones/Organizations
+  description: Clone a Patch Policy to a list of Zones/Organizations
+  parameters:
+    - name: policyId
+      in: path
+      description: >-
+        ID of the specified policy. **Note:** The specified policy can only be a
+        `patch` policy.
+      required: true
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    $ref: ../components/requestBodies/clonePolicy.yaml
+  responses:
+    '201':
+      description: Successful Operation
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/clonePolicy.yaml
+    '400':
+      $ref: ../components/responses/Error.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/UnauthorizedAction.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '429':
+      $ref: ../components/responses/RateLimit.yaml
+  tags:
+    - Policy Management

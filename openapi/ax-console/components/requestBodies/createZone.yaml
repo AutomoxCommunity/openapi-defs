@@ -1,0 +1,11 @@
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 45
+          minLength: 0
+      required:
+        - name

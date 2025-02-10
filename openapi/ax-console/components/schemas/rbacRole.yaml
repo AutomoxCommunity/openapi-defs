@@ -1,0 +1,25 @@
+type: object
+properties:
+  slug:
+    description: >-
+      A short slug that uniquely identifies the rbac role. The slug is what is
+      used when assigning rbac roles for a user.
+    type: string
+    examples:
+      - read-only
+  name:
+    type: string
+    examples:
+      - Read Only
+  description:
+    type: string
+    examples:
+      - Provides full read rights to a specific zone
+  type:
+    type: string
+    enum:
+      - zone
+      - account
+    examples:
+      - zone
+title: rbac-role

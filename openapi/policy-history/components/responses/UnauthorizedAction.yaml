@@ -1,0 +1,11 @@
+description: You do not have permission to perform this action.
+content:
+  application/json:
+    schema:
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+      required:
+        - errors

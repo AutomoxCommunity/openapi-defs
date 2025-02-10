@@ -1,0 +1,10 @@
+description: Access token is missing or invalid
+content:
+  application/json:
+    schema:
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+          maxItems: 1

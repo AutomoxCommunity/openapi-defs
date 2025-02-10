@@ -1,0 +1,10 @@
+type: object
+description: Policy Run Count
+properties:
+  policy_runs:
+    type: integer
+    format: int64
+    examples:
+      - 100
+example:
+  policy_runs: 100

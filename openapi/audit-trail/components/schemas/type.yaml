@@ -1,0 +1,2 @@
+type: string
+description: The web resource type as defined by the event source.

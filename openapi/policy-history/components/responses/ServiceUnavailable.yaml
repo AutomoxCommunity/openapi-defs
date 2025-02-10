@@ -1,0 +1,10 @@
+description: Service Unavailable
+content:
+  application/json:
+    schema:
+      properties:
+        errors:
+          type: array
+          maxItems: 1
+          items:
+            type: string

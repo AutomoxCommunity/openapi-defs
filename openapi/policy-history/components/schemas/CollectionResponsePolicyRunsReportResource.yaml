@@ -1,0 +1,34 @@
+type: object
+description: Collection Response Policy Runs Report Resource
+properties:
+  metadata:
+    $ref: ./CollectionMetaData.yaml
+  data:
+    type: array
+    items:
+      $ref: ./PolicyRunsReportResource.yaml
+example:
+  metadata:
+    current_page: 0
+    total_pages: 100
+    total_count: 1300
+    limit: 25
+    links:
+      previous: ''
+      next: policyreport.automox.com?page=1&limit=25
+  data:
+    - policy_uuid: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+      policy_id: 123456
+      org_uuid: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+      policy_name: Patch Tuesday
+      policy_type: patch
+      policy_deleted_at: '2024-03-27T12:23:45Z'
+      device_count: 100
+      pending: 10
+      success: 80
+      remediation_not_applicable: 5
+      failed: 5
+      run_time: '2024-03-27T12:23:45Z'
+      execution_token: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+      run_count: 100
+      not_included: 5

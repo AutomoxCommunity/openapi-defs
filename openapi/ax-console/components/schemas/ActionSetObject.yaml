@@ -1,0 +1,8 @@
+type: object
+properties:
+  metadata:
+    $ref: ./metadataObject.yaml
+  data:
+    type: array
+    items:
+      $ref: ./ActionSet.yaml

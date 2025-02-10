@@ -1,0 +1,91 @@
+type: object
+description: Any Account Change Event output
+properties:
+  activity:
+    $ref: ./activity.yaml
+  activity_id:
+    $ref: ./activity_id.yaml
+  actor:
+    $ref: ./actor.yaml
+  category_uid:
+    $ref: ./category_uid.yaml
+  class_uid:
+    $ref: ./class_uid.yaml
+  count:
+    $ref: ./count.yaml
+  message:
+    $ref: ./message.yaml
+  metadata:
+    $ref: ./metadata.yaml
+  raw_data:
+    $ref: ./raw_data.yaml
+  severity:
+    $ref: ./severity.yaml
+  severity_id:
+    $ref: ./severity_id.yaml
+  status_code:
+    $ref: ./status_code.yaml
+  status_id:
+    $ref: ./status_id.yaml
+  time:
+    $ref: ./time.yaml
+  timezone_offset:
+    $ref: ./timezone_offset.yaml
+  type_name:
+    $ref: ./type_name.yaml
+  type_uid:
+    $ref: ./type_uid.yaml
+  user:
+    $ref: ./user.yaml
+  user_result:
+    $ref: ./user_result.yaml
+example:
+  _id:
+    "$oid": 6669ead0690594387a72eb69
+  activity: Attach Policy
+  activity_id: 7
+  category_uid: 3
+  class_uid: 3001
+  count: 1
+  message: User Zone Role Revocation
+  metadata:
+    tenant_uid: 6eeff83e-8d07-4013-be6a-d5d5e6cfc1e2
+    uid: 1a898074-74d8-47ef-8871-e0092106951a
+    correlation_uid:
+    version: 1.1.0
+    product:
+      vendor_name: Automox
+      version: 1.0.0-dev
+  raw_data: "{account_rbac_role=no-global-access, zone_assignments=[{action=change,
+    zone_id=12ab356b-46c8-4fc1-bf17-5a1638cc31c3, rbac_role=zone-admin}]}"
+  severity: Informational
+  severity_id: 1
+  status_code: '204'
+  status_id: 1
+  time: '1718217424504'
+  timezone_offset: 0
+  type_name: 'Account Change: Detach Policy'
+  type_uid: 300108
+  actor:
+    user:
+      email_addr: 5904334a-a96d-4c21-9fb7-8d6e175a7a2b@automox.com
+      org:
+        uid:
+        name:
+      uid: 3a136316-f5f1-44d1-a0ae-ae929866cd7f
+  user:
+    uid: 324db1cd-4011-4d7a-8400-3bc5eb60c375
+    email_addr: c1bb5bb5-b131-41b1-aae7-8c86b60019ad@automox.com
+    groups:
+      - type: organization
+        privileges:
+          - Zone Operator
+        uid: 12ab356b-46c8-4fc1-bf17-5a1638cc31c3
+        name: Test Zone 1
+  user_result:
+    uid: 324db1cd-4011-4d7a-8400-3bc5eb60c375
+    email_addr: c1bb5bb5-b131-41b1-aae7-8c86b60019ad@automox.com
+
+
+
+

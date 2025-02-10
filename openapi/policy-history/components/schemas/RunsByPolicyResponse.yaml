@@ -1,0 +1,32 @@
+description: Policy Runs by Policy
+type: object
+properties:
+  data:
+    $ref: ./Data.yaml
+  metadata:
+    $ref: ./Metadata.yaml
+example:
+  data:
+    runs:
+      - policy_uuid: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+        policy_id: 123456
+        org_uuid: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+        policy_name: Patch Tuesday
+        policy_type: patch
+        policy_deleted_at: '2024-03-27T12:23:45Z'
+        device_count: 100
+        pending: 10
+        success: 80
+        remediation_not_applicable: 5
+        failed: 5
+        run_time: '2024-03-27T12:23:45Z'
+        execution_token: 56c0ba07-69f2-4f7c-b0a1-2bb0ed68578e
+        run_count: 100
+        not_included: 5
+    banner_stats:
+      policy_success_rate: 95.5
+      total_policies_applied: 100
+      total_successful_devices: 95
+  metadata:
+    total_run_count: 100
+    last_run_time: '2024-03-27T12:23:45Z'

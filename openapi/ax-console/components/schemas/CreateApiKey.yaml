@@ -1,0 +1,19 @@
+type: object
+properties:
+  name:
+    description: >-
+      A unique name for this key. Users are not allowed to have two keys with
+      the same name under a given organization.
+    type: string
+    examples:
+      - My Test API Key
+  expires_at:
+    description: >-
+      The time at which (in UTC) the key should automatically expire. Format is
+      ISO8601. Example: 2020-08-05T18:21:47+0000
+    type: string
+    format: date-time
+    examples:
+      - 2021-12-05T18:21:47+0000
+required:
+  - name

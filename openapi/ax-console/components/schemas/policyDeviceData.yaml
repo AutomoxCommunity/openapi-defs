@@ -1,0 +1,53 @@
+type: object
+properties:
+  timestamp:
+    description: >-
+      Refers to the event time for the device in the most recent policy
+      execution. This is referred to in the console UI as `Event Time`
+    type: string
+    format: date-time
+    examples:
+        - "2021-01-01T00:00:00Z"
+  result:
+    description: The result of the policy execution for the device
+    type: string
+    enum:
+      - success
+      - failed
+      - pending
+  reason:
+    description: If result is `pending` or `failed, the reason for this result
+    type: string
+    enum:
+      - device_updated
+      - see_activity_log
+      - device_offline
+  policy_id:
+    type: integer
+    format: int64
+    examples:
+      - 123456
+  policy_uuid:
+    type: string
+    format: uuid
+    examples:
+      - "10af9475-fd20-4189-bb9c-e1c707ff2670"
+  device_id:
+    type: integer
+    format: int64
+    examples:
+      - 123456
+  device_uuid:
+    type: string
+    format: uuid
+    examples:
+      - "10af9475-fd20-4189-bb9c-e1c707ff2670"
+  device_name:
+    type: string
+    examples:
+      - "My Device"
+  zone_id:
+    type: string
+    format: uuid
+    examples:
+      - "10af9475-fd20-4189-bb9c-e1c707ff2670"

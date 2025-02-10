@@ -1,0 +1,19 @@
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        target_zone_ids:
+          description: The zone IDs of the target zones
+          type: array
+          items:
+            type: string
+            format: uuid
+          maxItems: 500
+          minItems: 1
+      examples:
+        - target_zone_ids:
+            - 66d5a6fe-449e-4122-b4a6-a14fceaf1a62
+            - 880cdda6-90fd-4161-8e4d-28fe7d3c520b
+      required:
+        - target_zone_ids

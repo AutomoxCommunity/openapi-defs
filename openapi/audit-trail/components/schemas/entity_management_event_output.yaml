@@ -1,0 +1,85 @@
+type: object
+description: The output of the Automox event
+properties:
+  activity_id:
+    $ref: ./activity_id.yaml
+  activity:
+    $ref: ./activity.yaml
+  category_uid:
+    $ref: ./category_uid.yaml
+  class_uid:
+    $ref: ./class_uid.yaml
+  count:
+    $ref: ./count.yaml
+  entity:
+    $ref: ./entity.yaml
+  message:
+    $ref: ./message.yaml
+  metadata:
+    $ref: ./metadata.yaml
+  observables:
+    $ref: ./observables.yaml
+  raw_data:
+    $ref: ./raw_data.yaml
+  severity:
+    $ref: ./severity.yaml
+  severity_id:
+    $ref: ./severity_id.yaml
+  status:
+    $ref: ./status.yaml
+  status_code:
+    $ref: ./status_code.yaml
+  status_id:
+    $ref: ./status_id.yaml
+  time:
+    $ref: ./time.yaml
+  timezone_offset:
+    $ref: ./timezone_offset.yaml
+  type_name:
+    $ref: ./type_name.yaml
+  type_uid:
+    $ref: ./type_uid.yaml
+example:
+  id: 666b3fc4690594387a72efcf
+  activity: Delete
+  activity_id: 4
+  category_uid: 3
+  class_uid: 3004
+  count: 1
+  entity:
+    uid: '1150151'
+    name: test2
+    type: Group
+  message: Group Deleted
+  metadata:
+    tenant_uid: 7ee9f975-6cb7-44e9-afc3-3adbece95d74
+    uid: 62706a83-db64-4fd6-90ec-8c8c571c5790
+    correlation_uid: 5b45a549-a058-4cce-b194-cbab74ce5476
+    version: 1.1.0
+    product:
+      version: 1.0.0-dev
+      vendor_name: Automox
+  observables:
+    - value: john.doe@automox.com
+      type_id: 5
+      type: Email Address
+      name: email
+    - value: 5b45a549-a058-4cce-b194-cbab74ce5476
+      type: Organization ID
+      name: organization.id
+      type_id: 99
+    - value: Super Cool Zone
+      type: Organization Name
+      name: organization.name
+      type_id: 99
+  severity: Informational
+  severity_id: 1
+  status: Other
+  status_code: 204
+  status_id: 1
+  time: 1718304708686
+  timezone_offset: 0
+  type_name: 'Entity Management: Delete'
+  type_uid: 300404
+
+

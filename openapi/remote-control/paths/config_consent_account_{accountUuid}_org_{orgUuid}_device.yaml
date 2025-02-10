@@ -1,0 +1,59 @@
+post:
+  tags:
+    - Remote Control Configuration
+  summary: Configure Remote Control Consent Notifications in bulk.
+  description: Configure Remote Control Consent Notifications in bulk.
+  operationId: configureConsent
+  x-meta:
+    seo:
+      title: >-
+        Automox Remote Control Module API Docs | Configure Remote Control
+        Consent Notifications in bulk.
+      description: >-
+        Configure Remote Control Consent Notifications in bulk, for a given
+        account and organization, for which the authenticated user has access.
+  parameters:
+    - name: accountUuid
+      in: path
+      description: >-
+        The UUID of the account for which to configure Remote Control Consent
+        Notifications.
+      required: true
+      schema:
+        type: string
+        format: uuid
+    - name: orgUuid
+      in: path
+      description: >-
+        The UUID of the organization for which to configure Remote Control
+        Consent Notifications.
+      required: true
+      schema:
+        type: string
+        format: uuid
+  requestBody:
+    $ref: ../components/requestBodies/RemoteControlConsent.yaml
+  x-codeSamples:
+    - lang: PowerShell
+      source:
+        $ref: >-
+          ../code_samples/PowerShell/config_consent_account_{accountUuid}_org_{orgUuid}_device/post.ps1
+  responses:
+    '201':
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RemoteControlConsent.yaml
+    '400':
+      $ref: ../components/responses/Error.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/UnauthorizedAction.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '429':
+      $ref: ../components/responses/RateLimit.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml

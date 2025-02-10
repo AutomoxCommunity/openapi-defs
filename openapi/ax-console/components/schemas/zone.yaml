@@ -1,0 +1,47 @@
+type: object
+properties:
+  id:
+    description: The UUID of the zone (zone ID)
+    type: string
+    format: uuid
+    examples:
+      - 2e9a5cab-31af-402e-87b7-a691371d42d0
+  organization_id:
+    description: The organization ID associated with the zone. Use with legacy API.
+    type: integer
+    format: int64
+    examples:
+      - 845230
+  account_id:
+    description: The UUID for the Automox account
+    type: string
+    format: uuid
+    examples:
+      - c8e7dd4e-569d-4280-90f8-706fc944baf8
+  parent_id:
+    type: string
+    format: uuid
+  name:
+    description: The name of the Automox zone.
+    type: string
+    examples:
+      - My New Zone
+  created_by:
+    $ref: ./AccountUser.yaml
+  access_key:
+    type: string
+    format: uuid
+    examples:
+      - e763151d-9cdb-410b-99ff-d812b8f4723c
+  created_at:
+    description: The date and time the zone was created.
+    type: string
+    format: date-time
+    examples:
+      - 2021-10-20T16:03:25+0000
+  updated_at:
+    description: The date and time the zone was updated.
+    type: string
+    format: date-time
+    examples:
+      - 2021-10-20T16:03:25+0000

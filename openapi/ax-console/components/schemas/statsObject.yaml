@@ -1,0 +1,14 @@
+type: object
+properties:
+  offline:
+    type: integer
+    format: int64
+  success:
+    type: integer
+    format: int64
+  missed:
+    type: integer
+    format: int64
+  failed:
+    type: integer
+    format: int64

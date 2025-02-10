@@ -1,0 +1,79 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int64
+    examples:
+    - 123456
+    - 5243690
+  name:
+    description: Event type
+    type: string
+    examples:
+      - system.add
+  user_id:
+    type: integer
+    format: int64
+    examples:
+      - 754125
+      - 901250
+  server_id:
+    type: integer
+    format: int64
+    examples:
+      - 621453
+      - 5728964
+  organization_id:
+    type: integer
+    format: int64
+    examples:
+      - 8427961
+      - 242896
+  policy_id:
+    type:
+      - integer
+      - 'null'
+    format: int64
+    examples:
+      - 123456
+      - null
+  data:
+    anyOf:
+      - $ref: ./EventData.yaml
+      - $ref: ./SystemEventData.yaml
+      - $ref: ./NotificationResponseData.yaml
+      - $ref: ./NotificationSentData.yaml
+      - $ref: ./PatchAppliedData.yaml
+      - $ref: ./PatchFailedData.yaml
+      - $ref: ./PolicyActionData.yaml
+      - $ref: ./UserData.yaml
+      - $ref: ./SlackData.yaml
+      - $ref: ./SamlData.yaml
+      - $ref: ./OrgEndpointLimitData.yaml
+  server_name:
+    type: string
+    examples:
+      - "My New Device"
+  policy_name:
+    type: string
+    examples:
+      - "Test Policy"
+  policy_type_name:
+    type: string
+    enum:
+      - patch
+      - custom
+      - required_software
+    x-enumDescriptions:
+      patch: Patch Policy
+      custom: Worklet Policy
+      required_software: Required Software Policy
+    examples:
+      - patch
+      - custom
+  create_time:
+    type: string
+    format: date-time
+    examples:
+      - "2021-01-01T00:00:00Z"
+      - "2021-02-15T14:30:00Z"

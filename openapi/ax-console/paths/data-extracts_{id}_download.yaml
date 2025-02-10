@@ -1,0 +1,73 @@
+get:
+  operationId: DownloadDataExtract
+  summary: Download the CSV for a completed Data Extract job.
+  description: >-
+    Downloads the CSV for a completed Data Extract job. Triggers an automatic
+    download of the CSV file.
+  parameters:
+    - name: id
+      in: path
+      description: The ID of the Data Extract to download.
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: o
+      in: query
+      description: Organization ID
+      required: true
+      schema:
+        type: integer
+        format: int64
+  responses:
+    '200':
+      description: Downloads the extract file automatically.
+      headers: {}
+      content:
+        application/octet-stream:
+          example: {}
+          schema:
+            description: ''
+    '400':
+      $ref: ../components/responses/Error.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/UnauthorizedAction.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+    '410':
+      description: Returned when the extract download is no longer available.
+      content:
+        application/json:
+          schema:
+            description: ''
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: string
+            required:
+              - errors
+          example:
+            errors:
+              - The extract download is no longer available
+    '429':
+      $ref: ../components/responses/RateLimit.yaml
+    '503':
+      $ref: ../components/responses/ServiceUnavailable.yaml
+    default:
+      $ref: ../components/responses/Error.yaml
+  tags:
+    - Extracts
+  x-codeSamples:
+    - lang: PowerShell
+      source:
+        $ref: ../code_samples/PowerShell/data-extracts_{id}_download/get.ps1
+  x-meta:
+    seo:
+      title: Automox Console API Docs | Download Data Extract CSV
+      description: >-
+        Downloads the CSV (comma-separated values) file for a completed Data
+        Extract job, using the job ID.

@@ -1,0 +1,8 @@
+type: object
+properties:
+  header:
+    type: string
+  required:
+    type: boolean
+  example:
+    type: string

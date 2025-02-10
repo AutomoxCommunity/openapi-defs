@@ -1,0 +1,244 @@
+description: Policy configuration used for Patch Policies
+type: object
+properties:
+  auto_patch:
+    description: Enable or disable Auto Patch.
+    type: boolean
+  auto_reboot:
+    description: Enable or disable Auto Reboot.
+    type: boolean
+  notify_user:
+    type: boolean
+  missed_patch_window:
+    type: boolean
+  install_deferral_enabled:
+    type: boolean
+  pending_reboot_deferral_enabled:
+    type: boolean
+  patch_rule:
+    description: Use only with Patch policy.
+    type: string
+    enum:
+      - all
+      - filter
+      - manual
+      - advanced
+    x-enumDescriptions:
+      all: Patch All
+      filter: Patch All Except or Patch Only or Patch by Severity
+      manual: Manually Approve
+      advanced: Advanced Patch Policy
+  filter_type:
+    description: The type of filter being used. Use only with `patch_rule` = `filter`
+    type:
+      - string
+      - 'null'
+    enum:
+      - include
+      - exclude
+      - severity
+      - 'null'
+    x-enumDescriptions:
+      exclude: Patch All Except
+      include: Patch Only
+      severity: Patch by Severity
+  device_filters_enabled:
+    description: Enable or disable Device Targeting Filters.
+    type: boolean
+    default: false
+  device_filters:
+    $ref: ./DeviceFilters.yaml
+  secrets:
+    description: >-
+      This object can optionally contain multiple objects containing information
+      about secrets associated with the policy.
+    type: object
+    patternProperties:
+      ^[a-zA-Z][a-zA-Z0-9_]+:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+          organizationId:
+            type: string
+            format: uuid
+          name:
+            type: string
+          description:
+            type: string
+          numPolicies:
+            type: integer
+          createdAt:
+            type: string
+            format: date-time
+  include_optional:
+    description: >-
+      Enable or disable inclusion of optional Windows patches for this policy
+      **NOTE:** Will default to false if not included.
+    type: boolean
+    default: false
+  notify_reboot_user:
+    description: >-
+      Display modified notification 15 minutes before patching. This message
+      should inform the user that a reboot will follow patching actions.
+    type: boolean
+  notify_deferred_reboot_user:
+    description: >-
+      If `true`, this shows a post-install reboot notification message, if
+      `notify_reboot_deferred` is also `true`. If `notify_reboot_deferred` is
+      `false` or `null`, this will sync with the existing `notify_reboot_user`
+      parameter.
+    type:
+      - boolean
+      - 'null'
+  notify_deferred_reboot_user_timeout:
+    description: >-
+      The amount of time a deferrable reboot notification message appears before
+      timing out and closing. Min: 15 min. Max: 480 min. Default is 15 minutes.
+    type: integer
+    format: int64
+    default: 15
+  custom_notification_patch_message:
+    description: >-
+      Message to display before a non-rebooting patch policy executes on a
+      Windows device. Maximum 125 characters
+    type: string
+    maxLength: 125
+  custom_notification_patch_message_mac:
+    description: >-
+      Message to display before a non-rebooting patch policy executes on a macOS
+      device. Maximum 70 characters
+    type: string
+    maxLength: 70
+  custom_notification_reboot_message:
+    description: >-
+      Message to display before a rebooting patch policy executes on a Windows
+      device. Reboot will follow patching actions. Maximum 125 characters
+    type: string
+    maxLength: 125
+  custom_notification_reboot_message_mac:
+    description: >-
+      Message to display before a rebooting patch policy executes on a macOS
+      device. Reboot will follow patching actions. Maximum 70 characters
+    type: string
+    maxLength: 70
+  custom_notification_max_delays:
+    description: >-
+      Maximum number of times a user is allowed to defer the reboot. The default
+      is 0.
+    type: integer
+    format: int64
+    default: 0
+  custom_notification_deferment_periods:
+    description: >-
+      Integer array: Deferral time periods (hours) that users can choose from.
+      Include up to 3. All 3 must be distinct with a maximum of 24. Default
+      values: 1, 4, 8
+    type: array
+    items:
+      type: integer
+      format: int64
+    default:
+      - 1
+      - 4
+      - 8
+  custom_pending_reboot_notification_message:
+    description: Custom reboot message.
+    type: string
+    maxLength: 125
+  custom_pending_reboot_notification_message_mac:
+    description: >-
+      The custom reboot message for macOS, which overrides
+      `custom_pending_reboot_notification_message` string, if provided.
+    type: string
+    maxLength: 70
+  custom_pending_reboot_notification_max_delays:
+    description: >-
+      Maximum number of times a user is allowed to defer the reboot. The default
+      is 0.
+    type: integer
+    format: int64
+    default: 0
+  custom_pending_reboot_notification_deferment_periods:
+    description: >-
+      The time period options available to defer a reboot for each deferral
+      selection. Default values: 1, 4, 8
+    type: array
+    items:
+      type: integer
+      format: int64
+    default:
+      - 1
+      - 4
+      - 8
+  notify_user_message_timeout:
+    description: >-
+      The amount of time a patch notification appears before timing out and
+      closing. Min: 15 min. Max: 480 min. Default is 15 minutes.
+    type: integer
+    default: 15
+    maximum: 480
+    minimum: 15
+  notify_deferred_reboot_user_message_timeout:
+    description: >-
+      The amount of time a deferrable reboot notification message appears before
+      timing out and closing. Min: 15 min. Max: 480 min. Default is 15 minutes.
+    type: integer
+    default: 15
+    maximum: 480
+    minimum: 15
+  notify_user_auto_deferral_enabled:
+    description: >-
+      If a patch notification times out, apply the highest configured patch
+      deferral.
+    type: boolean
+    default: false
+  notify_deferred_reboot_user_auto_deferral_enabled:
+    description: >-
+      If a reboot notification times out, apply the highest configured reboot
+      deferral.
+    type: boolean
+    default: false
+examples:
+  - auto_patch: true
+    auto_reboot: true
+    notify_user: true
+    missed_patch_window: true
+    patch_rule: all
+    device_filters_enabled: true
+    device_filters:
+      - field: tag
+        op: in
+        value:
+          - Windows
+          - Win10
+    include_optional: true
+    notify_reboot_user: true
+    notify_deferred_reboot_user: true
+    custom_notification_patch_message: Necessary Windows updates are about to be installed!
+    custom_notification_patch_message_mac: Necessary Mac updates are about to be installed!
+    custom_notification_reboot_message: Necessary Windows updates are about to be installed! Reboot Needed!
+    custom_notification_reboot_message_mac: Necessary Mac updates are about to be installed! Reboot Needed!
+    custom_notification_max_delays: 0
+    custom_notification_deferment_periods:
+      - 1
+      - 4
+      - 8
+    custom_pending_reboot_notification_message: Your computer needs to restart to finish installing updates!
+    custom_pending_reboot_notification_message_mac: Your Mac needs to restart to finish installing updates!
+    custom_pending_reboot_notification_max_delays: 0
+    custom_pending_reboot_notification_deferment_periods:
+      - 2
+      - 4
+      - 6
+    notify_user_message_timeout: 15
+    notify_deferred_reboot_user_timeout: 15
+    notify_user_auto_deferral_enabled: false
+    notify_deferred_reboot_user_auto_deferral_enabled: false
+required:
+  - auto_patch
+  - notify_user
+  - auto_reboot
+  - patch_rule
+title: Patch Policy Configuration

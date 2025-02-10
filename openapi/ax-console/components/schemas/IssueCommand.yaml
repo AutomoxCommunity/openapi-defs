@@ -1,0 +1,27 @@
+type: object
+properties:
+  command_type_name:
+    type: string
+    enum:
+      - GetOS
+      - InstallUpdate
+      - InstallAllUpdates
+      - Reboot
+    examples:
+      - GetOS
+    x-enumDescriptions:
+      GetOS: Triggers a device scan.
+      InstallUpdate: Installs a specific patch.
+      InstallAllUpdates: >-
+        Installs all available patches. **NOTE: This ignores any Policy
+        Filters!**
+      Reboot: Forces a reboot.
+  args:
+    description: >-
+      Only needed for `InstallUpdate`. Includes the name of the patches to
+      install.
+    type: string
+    examples:
+      - KB12345 KB67890
+required:
+  - command_type_name

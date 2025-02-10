@@ -1,0 +1,10 @@
+description: Too many requests
+content:
+  application/json:
+    schema:
+      properties:
+        errors:
+          type: array
+          maxItems: 1
+          items:
+            type: string
