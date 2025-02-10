@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@redocly/cli": "^1.28.5",
+    "global": "^4.4.0",
     "rapidoc": "^9.3.8"
   }
 }
