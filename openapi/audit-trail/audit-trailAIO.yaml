@@ -1,0 +1,842 @@
+openapi: 3.1.0
+info:
+  title: Automox Audit Trail REST API
+  version: 1.1.0
+  contact:
+    name: Automox Support
+    url: https://help.automox.com/hc/en-us/requests/new
+    email: support@automox.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: https://console.automox.com/api/
+security:
+  - bearerAuth: []
+tags:
+  - name: Audit Trail
+    description: Actions for Audit Trail REST API
+externalDocs:
+  description: OCSF Schema Overview
+  url: https://developer.automox.com/developer-portal/ocsf-schema-overview/
+paths:
+  /audit-service/v1/orgs/{orgUuid}/events:
+    get:
+      operationId: getAuditEvents
+      summary: REST API to return a subset of the audited events
+      description: |
+        See the [OCSF Schema Overview](https://developer.automox.com/developer-portal/ocsf-schema-overview/) for more information on the schema, and [OCSF Class Events](https://developer.automox.com/developer-portal/ocsf-classes-events/) for more information on event classification. Also, check out this [blog](https://www.automox.com/blog/audit-trail-api/) on how to use the Audit Trail API.
+      tags:
+        - Audit Trail
+      parameters:
+        - name: orgUuid
+          in: path
+          description: The organization uuid
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        - name: date
+          in: query
+          description: The date of the event
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2021-01-01'
+        - name: cursor
+          in: query
+          description: The identifier of an OCSF event from the _last batch of events, indicating that the next set of events must have identifiers greater than cursor_
+          required: false
+          schema:
+            type: string
+          example: 6672200dd10935351f936399
+        - name: limit
+          in: query
+          description: The number of events to return, with a maximum of 500
+          required: false
+          schema:
+            type: integer
+            format: int32
+          example: 10
+          maximum: 500
+        - name: ax-organization-uuid
+          in: header
+          description: The organization uuid
+          required: false
+          schema:
+            type: string
+            format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+      responses:
+        '200':
+          description: The filled OCSF schema for the corresponding Automox event
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                    - $ref: '#/components/schemas/authentication_event_output'
+                    - $ref: '#/components/schemas/account_change_event_output'
+                    - $ref: '#/components/schemas/entity_management_event_output'
+                    - $ref: '#/components/schemas/web_resource_activity_output'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/UnauthorizedAction'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimit'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+      x-codeSamples:
+        - lang: PowerShell
+          source: |-
+            $apiKey = 'your_automox_api_key'
+            $axOrgUUID = 'your_automox_organization_uuid'
+            $date = '2024-09-05'
+            $query = '?date=' + $date
+            $headers = @{
+              "Authorization" = "Bearer $apiKey"
+              "Content-Type" = "application/json"
+              "x-ax-organization-uuid" = "$axOrgUUID"
+              }
+            $url = "https://console.automox.com/api/audit-service/v1/orgs/$axOrgUUID/events"
+            $response = (Invoke-WebRequest -Method Get -Uri ($url + $query) -Headers $headers).Content
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    activity:
+      type: string
+      description: The event activity name, as defined by the activity_id.
+      example: Create/Update/Delete/Attach Policy
+    activity_id:
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 99
+      description: The normalized identified of the activity that triggered the event.
+      example: 1
+    user:
+      type: object
+      description: The user that was a target of an activity.
+      properties:
+        user:
+          uid:
+            $ref: ./uid.yaml
+          email_addr:
+            $ref: ./email_addr.yaml
+          org:
+            $ref: ./org.yaml
+    actor:
+      type: object
+      description: The actor object describes details about the user/role/process that was the source of the activity.
+      properties:
+        user:
+          $ref: '#/components/schemas/user'
+    auth_protocol_id:
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 99
+      description: The normalized identifier of the authentication protocol used to create the user session.
+      example: 99
+    category_uid:
+      type: integer
+      format: int64
+      minimum: 1
+      maximum: 6
+      description: The category unique identifier of the event.
+      example: 3
+    class_uid:
+      type: integer
+      format: int64
+      description: The class unique identifier of the event.
+      example: 3001
+    count:
+      type: integer
+      format: int64
+      description: The number of times that events in the same logical group occurred during the event Start Time to End Time period.
+      example: 10
+    logon_type_id:
+      type: integer
+      format: int64
+      description: The normalized logon type identifier.
+      default: 99
+    message:
+      type: string
+      description: Automox event name.
+      example: User Account 2FA Disabled
+    metadata:
+      type: object
+      description: The metadata associated with the event or a finding.
+      properties:
+        correlation_uid:
+          type: string
+          format: uuid
+          description: The organization uid.
+        product:
+          type: object
+          properties:
+            version:
+              type: string
+              description: The version of the schema mapping used to generate the event.
+            vendor_name:
+              type: string
+              description: The name of the vendor that generated the event.
+        version:
+          type: string
+          description: The version  of the schema mapping used to generate the event.
+        tenant_uid:
+          type: string
+          format: uuid
+          description: The tenant uid.
+        uid:
+          type: string
+          format: uuid
+          description: The unique identifier of the event.
+      example:
+        correlation_uid: 123e4567-e89b-12d3-a456-426614174000
+        product:
+          version: 1.0.1
+          vendor_name: Example Vendor
+        version: 1.0.1
+        tenant_uid: 123e4567-e89b-12d3-a456-426614174000
+        uid: 123e4567-e89b-12d3-a456-426614174000
+    severity:
+      type: string
+      description: The event/finding severity, normalized to the caption of the severity_id value. In the case of 'Other', it is defined by the source.
+      enum:
+        - Unknown
+        - Informational
+        - Low
+        - Medium
+        - High
+        - Critical
+        - Fatal
+        - Other
+    severity_id:
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 99
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 99
+      x-enumDescriptions:
+        - '0': Unknown - The event/finding severity is unknown.
+        - '1': Informational - Informational message, no action required.
+        - '2': Low - The user decides if action is needed.
+        - '3': Medium - Action is required but the situation is not serious at this time.
+        - '4': High - Action is required immediately
+        - '5': Critical - Action is required immediately and the scope is broad.
+        - '6': Fatal - An error occurred but it is too late to take remedial action.
+        - '99': Other - The event/finding severity is not mapped. See the `severity` attribute, which contains a data source specific value.
+      description: The normalized identifier of the event/finding severity.
+      example: 0
+    status:
+      type: string
+      description: The event status, normalized to the caption of the status_id value. In the case of 'Other', it is defined by the event source.
+    status_id:
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 99
+      enum:
+        - 0
+        - 1
+        - 2
+        - 99
+      x-enumDescriptions:
+        - '0': Unknown
+        - '1': Success
+        - '2': Failure
+        - '99': Other
+      description: The normalized identifier of the event/finding status.
+    status_code:
+      type: integer
+      format: int64
+      description: The HTTP status code of the response.
+    status_details:
+      type: string
+      description: The details about the authentication request.
+      example: ''
+    time:
+      type: integer
+      format: int64
+      description: The time the event occurred, in Unix epoch time.
+      example: 1616421600
+    timezone_offset:
+      type: integer
+      format: int64
+      minimum: -1080
+      maximum: 1080
+      description: The number of minutes that the reported event time is ahead or behind UTC, in the range -1,080 to +1,080.
+    type_name:
+      type: string
+      description: The event/finding type name, as defined by the type_uid.
+    type_uid:
+      type: integer
+      format: int64
+      minimum: 100100
+      maximum: 600799
+      description: The normalized identifier of the event/finding type.
+    authentication_event_output:
+      type: object
+      description: The output of any Automox authentication event
+      properties:
+        activity:
+          $ref: '#/components/schemas/activity'
+        activity_id:
+          $ref: '#/components/schemas/activity_id'
+        actor:
+          $ref: '#/components/schemas/actor'
+        auth_protocol_id:
+          $ref: '#/components/schemas/auth_protocol_id'
+        category_uid:
+          $ref: '#/components/schemas/category_uid'
+        class_uid:
+          $ref: '#/components/schemas/class_uid'
+        count:
+          $ref: '#/components/schemas/count'
+        logon_type_id:
+          $ref: '#/components/schemas/logon_type_id'
+        message:
+          $ref: '#/components/schemas/message'
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        severity:
+          $ref: '#/components/schemas/severity'
+        severity_id:
+          $ref: '#/components/schemas/severity_id'
+        status:
+          $ref: '#/components/schemas/status'
+        status_id:
+          $ref: '#/components/schemas/status_id'
+        status_code:
+          $ref: '#/components/schemas/status_code'
+        status_details:
+          $ref: '#/components/schemas/status_details'
+        time:
+          $ref: '#/components/schemas/time'
+        timezone_offset:
+          $ref: '#/components/schemas/timezone_offset'
+        type_name:
+          $ref: '#/components/schemas/type_name'
+        type_uid:
+          $ref: '#/components/schemas/type_uid'
+        user:
+          $ref: '#/components/schemas/user'
+      example:
+        _id:
+          $oid: 6669d991ba9a2536b8158f17
+        activity: Logon
+        activity_id: 99
+        category_uid: 3
+        class_uid: 3002
+        count: 1
+        message: User Log In Success
+        metadata:
+          tenant_uid: 7ee9f975-6cb7-44e9-afc3-3adbece95d74
+          uid: 9f8896c3-e042-42de-ae41-eaef8a2a667b
+          correlation_uid: e92ae537-ea35-42d9-b6d4-92335f91a3db
+          product:
+            version: 1.0.0-dev
+            vendor_name: Automox
+          version: 1.1.0
+        severity: Informational
+        severity_id: 1
+        status: Other
+        status_code: 200
+        status_id: 1
+        time: 1718213009419
+        timezone_offset: 0
+        type_name: 'Authentication: Logon'
+        type_uid: 300201
+        actor:
+          user:
+            email_addr: readonly@mailinator.com
+            org:
+              uid: e92ae537-ea35-42d9-b6d4-92335f91a3db
+              name: Automation Testing Zone
+            uid: 21968d73-38b9-4c55-8b10-a854a5fa6a36
+        user:
+          uid: '115998'
+          email_addr: readonly@mailinator.com
+        auth_protocol_id: 99
+        logon_type_id: 99
+        status_details: success
+    raw_data:
+      type: string
+      format: json
+      description: The JSON payload from the event source
+      example: '{command_type_name=GetOS, server_id=4423039}'
+    uid:
+      type: string
+      format: uid
+      description: The unique identifier of the user the action is for.
+      example: 123e4567-e89b-12d3-a456-426614174000
+    email_addr:
+      type: string
+      format: email
+      description: The email of the user being created, removed or updated.
+      example: john.doe@example.com
+    groups:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+            description: The type of group the user is a member of.
+          name:
+            type: string
+            description: The name of the group the user is a member of.
+          uid:
+            type: string
+            description: The unique identifier of the group the user is a member of.
+          privileges:
+            type: array
+            items:
+              type: string
+              description: The privileges the user has in the group.
+      example:
+        - type: organization
+          name: My Test Zone
+          uid: 123e4567-e89b-12d3-a456-426614174000
+          privileges:
+            - Global Administrator
+        - type: organization
+          name: Another Zone
+          uid: 123e4567-e89b-12d3-a456-426614174001
+          privileges:
+            - Zone Administrator
+    user_result:
+      type: object
+      description: The organization object describes details about the organization that the user is a member of.
+      properties:
+        uid:
+          $ref: '#/components/schemas/uid'
+        email_addr:
+          $ref: '#/components/schemas/email_addr'
+        groups:
+          $ref: '#/components/schemas/groups'
+      example:
+        uid: '1209412'
+        email_addr: user.assigned@automox.com
+        groups:
+          - type: organization
+            name: ZoneName
+            uid: 259c001d-1540-47c9-83f3-c940867c53ec
+            privileges:
+              - Billing Administrator
+    account_change_event_output:
+      type: object
+      description: Any Account Change Event output
+      properties:
+        activity:
+          $ref: '#/components/schemas/activity'
+        activity_id:
+          $ref: '#/components/schemas/activity_id'
+        actor:
+          $ref: '#/components/schemas/actor'
+        category_uid:
+          $ref: '#/components/schemas/category_uid'
+        class_uid:
+          $ref: '#/components/schemas/class_uid'
+        count:
+          $ref: '#/components/schemas/count'
+        message:
+          $ref: '#/components/schemas/message'
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        raw_data:
+          $ref: '#/components/schemas/raw_data'
+        severity:
+          $ref: '#/components/schemas/severity'
+        severity_id:
+          $ref: '#/components/schemas/severity_id'
+        status_code:
+          $ref: '#/components/schemas/status_code'
+        status_id:
+          $ref: '#/components/schemas/status_id'
+        time:
+          $ref: '#/components/schemas/time'
+        timezone_offset:
+          $ref: '#/components/schemas/timezone_offset'
+        type_name:
+          $ref: '#/components/schemas/type_name'
+        type_uid:
+          $ref: '#/components/schemas/type_uid'
+        user:
+          $ref: '#/components/schemas/user'
+        user_result:
+          $ref: '#/components/schemas/user_result'
+      example:
+        _id:
+          $oid: 6669ead0690594387a72eb69
+        activity: Attach Policy
+        activity_id: 7
+        category_uid: 3
+        class_uid: 3001
+        count: 1
+        message: User Zone Role Revocation
+        metadata:
+          tenant_uid: 6eeff83e-8d07-4013-be6a-d5d5e6cfc1e2
+          uid: 1a898074-74d8-47ef-8871-e0092106951a
+          correlation_uid: null
+          version: 1.1.0
+          product:
+            vendor_name: Automox
+            version: 1.0.0-dev
+        raw_data: '{account_rbac_role=no-global-access, zone_assignments=[{action=change, zone_id=12ab356b-46c8-4fc1-bf17-5a1638cc31c3, rbac_role=zone-admin}]}'
+        severity: Informational
+        severity_id: 1
+        status_code: '204'
+        status_id: 1
+        time: '1718217424504'
+        timezone_offset: 0
+        type_name: 'Account Change: Detach Policy'
+        type_uid: 300108
+        actor:
+          user:
+            email_addr: 5904334a-a96d-4c21-9fb7-8d6e175a7a2b@automox.com
+            org:
+              uid: null
+              name: null
+            uid: 3a136316-f5f1-44d1-a0ae-ae929866cd7f
+        user:
+          uid: 324db1cd-4011-4d7a-8400-3bc5eb60c375
+          email_addr: c1bb5bb5-b131-41b1-aae7-8c86b60019ad@automox.com
+          groups:
+            - type: organization
+              privileges:
+                - Zone Operator
+              uid: 12ab356b-46c8-4fc1-bf17-5a1638cc31c3
+              name: Test Zone 1
+        user_result:
+          uid: 324db1cd-4011-4d7a-8400-3bc5eb60c375
+          email_addr: c1bb5bb5-b131-41b1-aae7-8c86b60019ad@automox.com
+    entity:
+      type: object
+      description: The Managed Entity object describes the type and version of an entity, such as a policy or configuration.
+      properties:
+        name:
+          type: string
+          description: The name of the managed entity.
+        type:
+          type: string
+          description: The managed entity type.
+        uid:
+          type: string
+          format: uuid
+          description: The identifier of the managed entity.
+      example:
+        name: My Policy
+        type: Policy
+        uid: 123e4567-e89b-12d3-a456-426614174000
+    observables:
+      type: array
+      items:
+        properties:
+          type:
+            type: string
+            description: The observable value type name.
+            example: ipv4-addr
+          type_id:
+            type: integer
+            format: int64
+            description: The observable value type identifier.
+            example: 1
+          value:
+            type: string
+            description: The value associated with the observable attribute. The meaning of the value depends on the observable type. If the name refers to a scalar attribute, then the value is the value of the attribute. If the name refers to an object attribute, then the value is not populated.
+            example: '"[{"value": null, "type_id": 5, "name": "email", "type": "Email Address"}, {"value": "b3a2474f-c697-484d-91b4-1195d6a7229e", "type_id": 99", "type": "Organization ID", "name": "organization.id"}, {"value": "Ephemeral Test Account 7e433f247f76", "type_id": 99, "name": "organization.name", "type": "Organization Name"}]"'
+          name:
+            type: string
+            description: The full name of the observable attribute. The name is a pointer/reference to an attribute within the event data.
+            example: source-ipv4-addr
+      example:
+        - type: ipv4-addr
+          type_id: 1
+          value: '"[{"value": null, "type_id": 5, "name": "email", "type": "Email Address"}, {"value": "b3a2474f-c697-484d-91b4-1195d6a7229e", "type_id": 99", "type": "Organization ID", "name": "organization.id"}, {"value": "Ephemeral Test Account 7e433f247f76", "type_id": 99, "name": "organization.name", "type": "Organization Name"}]"'
+    entity_management_event_output:
+      type: object
+      description: The output of the Automox event
+      properties:
+        activity_id:
+          $ref: '#/components/schemas/activity_id'
+        activity:
+          $ref: '#/components/schemas/activity'
+        category_uid:
+          $ref: '#/components/schemas/category_uid'
+        class_uid:
+          $ref: '#/components/schemas/class_uid'
+        count:
+          $ref: '#/components/schemas/count'
+        entity:
+          $ref: '#/components/schemas/entity'
+        message:
+          $ref: '#/components/schemas/message'
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        observables:
+          $ref: '#/components/schemas/observables'
+        raw_data:
+          $ref: '#/components/schemas/raw_data'
+        severity:
+          $ref: '#/components/schemas/severity'
+        severity_id:
+          $ref: '#/components/schemas/severity_id'
+        status:
+          $ref: '#/components/schemas/status'
+        status_code:
+          $ref: '#/components/schemas/status_code'
+        status_id:
+          $ref: '#/components/schemas/status_id'
+        time:
+          $ref: '#/components/schemas/time'
+        timezone_offset:
+          $ref: '#/components/schemas/timezone_offset'
+        type_name:
+          $ref: '#/components/schemas/type_name'
+        type_uid:
+          $ref: '#/components/schemas/type_uid'
+      example:
+        id: 666b3fc4690594387a72efcf
+        activity: Delete
+        activity_id: 4
+        category_uid: 3
+        class_uid: 3004
+        count: 1
+        entity:
+          uid: '1150151'
+          name: test2
+          type: Group
+        message: Group Deleted
+        metadata:
+          tenant_uid: 7ee9f975-6cb7-44e9-afc3-3adbece95d74
+          uid: 62706a83-db64-4fd6-90ec-8c8c571c5790
+          correlation_uid: 5b45a549-a058-4cce-b194-cbab74ce5476
+          version: 1.1.0
+          product:
+            version: 1.0.0-dev
+            vendor_name: Automox
+        observables:
+          - value: john.doe@automox.com
+            type_id: 5
+            type: Email Address
+            name: email
+          - value: 5b45a549-a058-4cce-b194-cbab74ce5476
+            type: Organization ID
+            name: organization.id
+            type_id: 99
+          - value: Super Cool Zone
+            type: Organization Name
+            name: organization.name
+            type_id: 99
+        severity: Informational
+        severity_id: 1
+        status: Other
+        status_code: 204
+        status_id: 1
+        time: 1718304708686
+        timezone_offset: 0
+        type_name: 'Entity Management: Delete'
+        type_uid: 300404
+    desc:
+      type: string
+      description: The description of the web resource.
+      example: The web resource was created.
+    name:
+      type: string
+      description: The name of the resource, actor, or entity.
+      example: John Doe
+    type:
+      type: string
+      description: The web resource type as defined by the event source.
+    url_string:
+      type: string
+      description: The URL of the web resource.
+      example: https://console.automox.com
+    web_resources:
+      type: array
+      description: The Web Resource object describes characteristics of a web resource that was affected by the activity/event.
+      items:
+        type: object
+        allOf:
+          - $ref: '#/components/schemas/desc'
+          - $ref: '#/components/schemas/name'
+          - $ref: '#/components/schemas/type'
+          - $ref: '#/components/schemas/uid'
+          - $ref: '#/components/schemas/url_string'
+    web_resource_activity_output:
+      type: object
+      description: The output for the Web Resource Activity event.
+      properties:
+        activity:
+          $ref: '#/components/schemas/activity'
+        activity_id:
+          $ref: '#/components/schemas/activity_id'
+        category_uid:
+          $ref: '#/components/schemas/category_uid'
+        class_uid:
+          $ref: '#/components/schemas/class_uid'
+        count:
+          $ref: '#/components/schemas/count'
+        message:
+          $ref: '#/components/schemas/message'
+        metadata:
+          $ref: '#/components/schemas/metadata'
+        observables:
+          $ref: '#/components/schemas/observables'
+        raw_data:
+          $ref: '#/components/schemas/raw_data'
+        severity:
+          $ref: '#/components/schemas/severity'
+        severity_id:
+          $ref: '#/components/schemas/severity_id'
+        status_id:
+          $ref: '#/components/schemas/status_id'
+        status_code:
+          $ref: '#/components/schemas/status_code'
+        time:
+          $ref: '#/components/schemas/time'
+        timezone_offset:
+          $ref: '#/components/schemas/timezone_offset'
+        type_name:
+          $ref: '#/components/schemas/type_name'
+        type_uid:
+          $ref: '#/components/schemas/type_uid'
+        web_resources:
+          $ref: '#/components/schemas/web_resources'
+      example:
+        id: 666b43ee690594387a72f058
+        activity: Other
+        activity_id: 99
+        category_uid: 6
+        class_uid: 6001
+        count: 1
+        message: Manual Device Scan Request
+        metadata:
+          tenant_uid: 7ee9f975-6cb7-44e9-afc3-3adbece95d74
+          uid: b4b222d9-0d71-453d-88ba-f4032f786775
+          correlation_uid: 5b45a549-a058-4cce-b194-cbab74ce5476
+          product:
+            vendor_name: Automox
+            version: 1.0.0-dev
+          version: 1.1.0
+        observables:
+          - value: john.doe@automox.com
+            name: email
+            type_id: 5
+            type: Email Address
+          - value: 5b45a549-a058-4cce-b194-cbab74ce5476
+            type: Organization ID
+            type_id: 99
+            name: organization.id
+          - value: Super Cool Zone
+            type_id: 99
+            name: organization.name
+            type: Organization Name
+        raw_data: '{command_type_name=GetOS, server_id=4423039}'
+        severity: Informational
+        severity_id: 1
+        status_code: 201
+        status_id: 1
+        time: 1718305774191
+        timezone_offset: 0
+        type_name: 'Web Resources Activity: Other'
+        type_uid: 600199
+        web_resources:
+          - uid: '4423039'
+            name: Doe-Big-Sur-VM.local custom
+            url_string: https://console.automox.com/api/servers/4423039
+            desc: Automox Device
+            type: Device
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            properties:
+              errors:
+                type: array
+                items:
+                  type: string
+          example:
+            errors:
+              - Bad Request
+    Unauthorized:
+      description: Access token is missing or invalid
+      content:
+        application/json:
+          schema:
+            properties:
+              errors:
+                type: array
+                items:
+                  type: string
+                maxItems: 1
+    UnauthorizedAction:
+      description: You do not have permission to perform this action.
+      content:
+        application/json:
+          schema:
+            description: Unauthorized
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: string
+            required:
+              - errors
+    NotFound:
+      description: Entity not found
+      content:
+        application/json:
+          schema:
+            properties:
+              errors:
+                type: array
+                items:
+                  type: string
+                maxItems: 1
+    RateLimit:
+      description: Too many requests
+      content:
+        application/json:
+          schema:
+            properties:
+              errors:
+                type: array
+                items:
+                  type: string
+                maxItems: 1
+    ServiceUnavailable:
+      description: Service Unavailable
+      content:
+        application/json:
+          schema:
+            properties:
+              errors:
+                type: array
+                items:
+                  type: string
+                maxItems: 1
