@@ -33,11 +33,6 @@ post:
         format: uuid
   requestBody:
     $ref: ../components/requestBodies/RemoteControlConsent.yaml
-  x-codeSamples:
-    - lang: PowerShell
-      source:
-        $ref: >-
-          ../code_samples/PowerShell/config_consent_account_{accountUuid}_org_{orgUuid}_device/post.ps1
   responses:
     '201':
       description: Created

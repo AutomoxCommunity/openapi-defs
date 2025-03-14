@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Automox Remote Control Module API
   description: API for use with the Automox Remote Control module
-  version: '2023-08-11'
+  version: 2025-03-14_TEST
   contact:
     name: Automox Support
     email: support@automox.com
@@ -14,7 +14,7 @@ servers:
 security:
   - bearerAuth: []
 paths:
-  /config/consent/account/{accountUuid}/org/{orgUuid}/device:
+  /config/consent/account/:accountUuid/org/:orgUuid/device:
     post:
       tags:
         - Remote Control Configuration
@@ -42,28 +42,6 @@ paths:
             format: uuid
       requestBody:
         $ref: '#/components/requestBodies/RemoteControlConsent'
-      x-codeSamples:
-        - lang: PowerShell
-          source: |
-            $apiKey = 'your_automox_api_key'
-            $headers = @{
-                "Authorization" = "Bearer $apiKey"
-                "Content-Type" = "application/json"
-            }
-            $body = @"
-            {
-                "device_uuids": [
-                    "a4603e09-7cab-4e0f-ad6b-c484436e74fc",
-                    "1a2b3c4d-5e6f-7a8b-9c0d-e1f2a3b4c5d6",
-                    "7a8b9c0d-e1f2-a3b4-c5d6-e7f8a9b0c1d2"
-                ],
-                "config": {
-                    "bypass_consent": true
-                }
-            }
-            "@
-            $url = "https://rc.automox.com/api/config/consent/account/{accountUuid}/org/{orgUuid}/device"
-            Invoke-WebRequest -Method Post -Uri $url -Headers $headers -Body $body
       responses:
         '201':
           description: Created
