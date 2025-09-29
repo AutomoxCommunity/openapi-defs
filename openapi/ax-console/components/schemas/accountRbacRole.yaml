@@ -1,8 +1,0 @@
-description: RBAC role assigned to the account for a user.
-type: string
-enum:
-  - global-admin
-  - no-global-access
-examples:
-  - global-admin
-title: account-rbac-role

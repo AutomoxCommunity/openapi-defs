@@ -1,6 +1,0 @@
-type: integer
-format: int64
-minimum: 1
-maximum: 6
-description: The category unique identifier of the event.
-example: 3

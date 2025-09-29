@@ -1,5 +1,0 @@
-type: integer
-format: int64
-minimum: 100100
-maximum: 600799
-description: The normalized identifier of the event/finding type.

@@ -1,6 +1,0 @@
-type: integer
-format: int64
-minimum: 0
-maximum: 99
-description: The normalized identified of the activity that triggered the event.
-example: 1

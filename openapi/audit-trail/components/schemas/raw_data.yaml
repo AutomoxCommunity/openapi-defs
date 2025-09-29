@@ -1,4 +1,0 @@
-type: string
-format: json
-description: The JSON payload from the event source
-example: "{command_type_name=GetOS, server_id=4423039}"

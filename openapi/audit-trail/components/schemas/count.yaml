@@ -1,6 +1,0 @@
-type: integer
-format: int64
-description: >-
-  The number of times that events in the same logical group occurred during the
-  event Start Time to End Time period.
-example: 10

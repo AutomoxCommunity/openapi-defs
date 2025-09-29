@@ -1,3 +1,0 @@
-type: string
-description: The RBAC role of the user being created, removed or updated.
-example: 'Global Administrator'

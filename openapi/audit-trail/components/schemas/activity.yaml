@@ -1,4 +1,0 @@
-type: string
-description: The event activity name, as defined by the activity_id.
-example: Create/Update/Delete/Attach Policy
-

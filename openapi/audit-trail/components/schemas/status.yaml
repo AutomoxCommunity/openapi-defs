@@ -1,4 +1,0 @@
-type: string
-description: >-
-  The event status, normalized to the caption of the status_id value. In the
-  case of 'Other', it is defined by the event source.

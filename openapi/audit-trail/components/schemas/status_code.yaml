@@ -1,3 +1,0 @@
-type: integer
-format: int64
-description: The HTTP status code of the response.

@@ -1,4 +1,0 @@
-type: object
-properties:
-  manual_approval:
-    type: boolean
